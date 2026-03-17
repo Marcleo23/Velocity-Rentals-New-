@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, CheckCircle2, XCircle, ChevronRight, Filter } from 'lucide-react';
 import { Booking, Car, BookingStatus } from '../types';
+import { BookingDetailsModal } from './BookingDetailsModal';
 
 interface MyBookingsProps {
   bookings: (Booking & { car?: Car })[];
@@ -11,6 +12,13 @@ interface MyBookingsProps {
 
 export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUpdateStatus, isAdmin }) => {
   const [activeTab, setActiveTab] = useState<'pending' | 'successful' | 'cancelled'>('pending');
+  const [selectedBooking, setSelectedBooking] = useState<(Booking & { car?: Car; userEmail?: string }) | null>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  const handleViewDetails = (booking: Booking & { car?: Car; userEmail?: string }) => {
+    setSelectedBooking(booking);
+    setIsDetailsOpen(true);
+  };
 
   const getStatusColor = (status: BookingStatus) => {
     switch (status) {
@@ -141,7 +149,10 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
               </div>
 
               <div className="flex flex-col gap-2">
-                <button className="p-4 bg-black/5 dark:bg-white/5 rounded-2xl group-hover:bg-black dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-all">
+                <button 
+                  onClick={() => handleViewDetails(booking)}
+                  className="p-4 bg-black/5 dark:bg-white/5 rounded-2xl group-hover:bg-black dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-all"
+                >
                   <ChevronRight className="w-5 h-5" />
                 </button>
                 {(booking.status === BookingStatus.PENDING || booking.status === BookingStatus.CONFIRMED) && (
@@ -161,6 +172,12 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
           ))
         )}
       </div>
+
+      <BookingDetailsModal 
+        isOpen={isDetailsOpen}
+        onClose={() => setIsDetailsOpen(false)}
+        booking={selectedBooking}
+      />
     </div>
   );
 };

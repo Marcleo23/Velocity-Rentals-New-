@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Plus, Search, Filter, MoreVertical, Edit2, Trash2, Car as CarIcon, Users, Calendar } from 'lucide-react';
+import { Plus, Search, Filter, MoreVertical, Edit2, Trash2, Car as CarIcon, Users, Calendar, Eye } from 'lucide-react';
 import { Car, Booking, CarStatus, UserProfile, BookingStatus } from '../types';
 import { CarModal } from './CarModal';
+import { BookingDetailsModal } from './BookingDetailsModal';
 
 interface AdminDashboardProps {
   cars: Car[];
@@ -31,6 +32,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [activeTab, setActiveTab] = useState<'fleet' | 'pending' | 'successful' | 'cancelled' | 'users'>(initialTab);
   const [isCarModalOpen, setIsCarModalOpen] = useState(false);
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<(Booking & { car?: Car; userEmail?: string }) | null>(null);
+  const [isBookingDetailsOpen, setIsBookingDetailsOpen] = useState(false);
 
   const handleAddCar = () => {
     setSelectedCar(null);
@@ -50,6 +53,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       await onAddCar(carData);
     }
     setIsCarModalOpen(false);
+  };
+
+  const handleViewBookingDetails = (booking: Booking & { car?: Car; userEmail?: string }) => {
+    setSelectedBooking(booking);
+    setIsBookingDetailsOpen(true);
   };
 
   const filteredBookings = bookings.filter(booking => {
@@ -219,7 +227,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Vehicle</th>
                   <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Period</th>
                   <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest text-right">Total</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Total</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/5 dark:divide-white/5">
@@ -256,7 +265,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           <option value="completed">Completed</option>
                         </select>
                       </td>
-                      <td className="px-6 py-4 text-right font-bold text-sm dark:text-white">${booking.totalPrice}</td>
+                      <td className="px-6 py-4 font-bold text-sm dark:text-white">${booking.totalPrice}</td>
+                      <td className="px-6 py-4 text-right">
+                        <button 
+                          onClick={() => handleViewBookingDetails(booking)}
+                          className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
+                        >
+                          <Eye className="w-4 h-4 text-black/40 dark:text-white/40" />
+                        </button>
+                      </td>
                     </tr>
                   ))
                 )}
@@ -341,6 +358,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         car={selectedCar}
         onClose={() => setIsCarModalOpen(false)}
         onSave={handleSaveCar}
+      />
+
+      <BookingDetailsModal 
+        isOpen={isBookingDetailsOpen}
+        onClose={() => setIsBookingDetailsOpen(false)}
+        booking={selectedBooking}
       />
     </div>
   );
