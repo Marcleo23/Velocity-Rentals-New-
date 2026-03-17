@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Plus, Search, Filter, MoreVertical, Edit2, Trash2, Car as CarIcon, Users, Calendar } from 'lucide-react';
-import { Car, Booking, CarStatus, UserProfile } from '../types';
+import { Car, Booking, CarStatus, UserProfile, BookingStatus } from '../types';
 import { CarModal } from './CarModal';
 
 interface AdminDashboardProps {
   cars: Car[];
   bookings: (Booking & { car?: Car; userEmail?: string })[];
   users?: UserProfile[];
+  initialTab?: 'fleet' | 'pending' | 'successful' | 'cancelled' | 'users';
   onAddCar: (car: Omit<Car, 'id'>) => void;
   onUpdateCar: (id: string, updates: Partial<Car>) => void;
   onDeleteCar: (id: string) => void;
@@ -19,6 +20,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   cars, 
   bookings, 
   users = [],
+  initialTab = 'fleet',
   onAddCar, 
   onUpdateCar, 
   onDeleteCar,
@@ -26,7 +28,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onUpdateUserRole,
   onDeleteUser
 }) => {
-  const [activeTab, setActiveTab] = useState<'fleet' | 'bookings' | 'users'>('fleet');
+  const [activeTab, setActiveTab] = useState<'fleet' | 'pending' | 'successful' | 'cancelled' | 'users'>(initialTab);
   const [isCarModalOpen, setIsCarModalOpen] = useState(false);
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
 
@@ -50,6 +52,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setIsCarModalOpen(false);
   };
 
+  const filteredBookings = bookings.filter(booking => {
+    if (activeTab === 'pending') return booking.status === BookingStatus.PENDING;
+    if (activeTab === 'successful') return booking.status === BookingStatus.CONFIRMED || booking.status === BookingStatus.COMPLETED;
+    if (activeTab === 'cancelled') return booking.status === BookingStatus.CANCELLED;
+    return true;
+  });
+
   return (
     <div className="max-w-7xl mx-auto py-12 px-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
@@ -58,19 +67,42 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <p className="text-black/40 dark:text-white/40 font-medium">Control your fleet and monitor active rentals</p>
         </div>
         
-        <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-2xl">
+        <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-2xl overflow-x-auto">
           <button 
             onClick={() => setActiveTab('fleet')}
-            className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${activeTab === 'fleet' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'fleet' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
           >
             Fleet
+            <span className="opacity-40">{cars.length}</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('pending')}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'pending' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+          >
+            Pending
+            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.PENDING).length}</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('successful')}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'successful' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+          >
+            Successful
+            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CONFIRMED || b.status === BookingStatus.COMPLETED).length}</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('cancelled')}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+          >
+            Cancelled
+            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CANCELLED).length}</span>
           </button>
           {users.length > 0 && (
             <button 
               onClick={() => setActiveTab('users')}
-              className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${activeTab === 'users' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+              className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'users' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
             >
               Users
+              <span className="opacity-40">{users.length}</span>
             </button>
           )}
         </div>
@@ -173,6 +205,61 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ) : activeTab === 'pending' || activeTab === 'successful' || activeTab === 'cancelled' ? (
+        <div className="bg-white dark:bg-black rounded-[32px] border border-black/5 dark:border-white/5 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-b border-black/5 dark:border-white/5">
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Customer</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Vehicle</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Period</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Status</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest text-right">Total</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-black/5 dark:divide-white/5">
+                {filteredBookings.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="px-6 py-20 text-center text-black/40 dark:text-white/40 font-medium">
+                      No {activeTab} bookings found.
+                    </td>
+                  </tr>
+                ) : (
+                  filteredBookings.map((booking) => (
+                    <tr key={booking.id} className="hover:bg-black/[0.01] dark:hover:bg-white/[0.01] transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="text-sm font-bold dark:text-white">{booking.userEmail}</div>
+                        <div className="text-[10px] text-black/40 dark:text-white/40 font-medium">ID: {booking.userId.slice(0, 8)}...</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm font-bold dark:text-white">{booking.car?.make} {booking.car?.model}</div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-[10px] font-bold text-black/60 dark:text-white/60">
+                          {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <select 
+                          value={booking.status}
+                          onChange={(e) => onUpdateBookingStatus(booking.id, e.target.value)}
+                          className="text-[10px] font-bold uppercase tracking-wider bg-black/5 dark:bg-white/5 border-none rounded-lg px-2 py-1 outline-none focus:ring-1 focus:ring-black/10 dark:focus:ring-white/10 dark:text-white dark:bg-black"
+                        >
+                          <option value="pending">Pending</option>
+                          <option value="confirmed">Confirmed</option>
+                          <option value="cancelled">Cancelled</option>
+                          <option value="completed">Completed</option>
+                        </select>
+                      </td>
+                      <td className="px-6 py-4 text-right font-bold text-sm dark:text-white">${booking.totalPrice}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

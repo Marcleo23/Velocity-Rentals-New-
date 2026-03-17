@@ -5,10 +5,11 @@ import { Booking, Car, BookingStatus } from '../types';
 interface MyBookingsProps {
   bookings: (Booking & { car?: Car })[];
   onCancel?: (id: string) => void;
+  onUpdateStatus?: (id: string, status: string) => void;
   isAdmin?: boolean;
 }
 
-export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, isAdmin }) => {
+export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUpdateStatus, isAdmin }) => {
   const [activeTab, setActiveTab] = useState<'pending' | 'successful' | 'cancelled'>('pending');
 
   const getStatusColor = (status: BookingStatus) => {
@@ -96,10 +97,23 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, isAd
                       <span className="text-xs text-black/40 dark:text-white/40 font-medium">{booking.userEmail}</span>
                     )}
                   </div>
-                  <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider ${getStatusColor(booking.status)}`}>
-                    {getStatusIcon(booking.status)}
-                    {booking.status}
-                  </div>
+                  {isAdmin ? (
+                    <select 
+                      value={booking.status}
+                      onChange={(e) => onUpdateStatus?.(booking.id, e.target.value)}
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider border-none outline-none focus:ring-2 focus:ring-white/20 ${getStatusColor(booking.status)}`}
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="confirmed">Confirmed</option>
+                      <option value="cancelled">Cancelled</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                  ) : (
+                    <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider ${getStatusColor(booking.status)}`}>
+                      {getStatusIcon(booking.status)}
+                      {booking.status}
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">

@@ -446,6 +446,7 @@ export default function App() {
                   car: cars.find(c => c.id === b.carId)
                 }))} 
                 onCancel={cancelBooking}
+                onUpdateStatus={updateBookingStatus}
                 isAdmin={userProfile?.role === 'admin'}
               />
             </motion.div>
