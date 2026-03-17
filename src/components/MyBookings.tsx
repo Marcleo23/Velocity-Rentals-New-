@@ -65,13 +65,15 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
             Successful
             <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CONFIRMED || b.status === BookingStatus.COMPLETED).length}</span>
           </button>
-          <button 
-            onClick={() => setActiveTab('cancelled')}
-            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
-          >
-            Cancelled
-            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CANCELLED).length}</span>
-          </button>
+          {isAdmin && (
+            <button 
+              onClick={() => setActiveTab('cancelled')}
+              className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+            >
+              Cancelled
+              <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CANCELLED).length}</span>
+            </button>
+          )}
         </div>
       </div>
 
