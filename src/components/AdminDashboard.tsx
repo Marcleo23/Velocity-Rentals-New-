@@ -69,7 +69,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             onClick={() => setActiveTab('bookings')}
             className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${activeTab === 'bookings' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
           >
-            Bookings
+            All Bookings
           </button>
           {users.length > 0 && (
             <button 
@@ -107,7 +107,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
           <div>
             <div className="text-2xl font-bold dark:text-white">{new Set(bookings.map(b => b.userId)).size}</div>
-            <div className="text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Active Customers</div>
+            <div className="text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Total Customers</div>
           </div>
         </div>
       </div>

@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => onNavigate('bookings')}
               className={`text-sm font-medium transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white'}`}
             >
-              {isAdmin ? 'Bookings' : 'My Bookings'}
+              My Bookings
             </button>
           )}
           {user && (

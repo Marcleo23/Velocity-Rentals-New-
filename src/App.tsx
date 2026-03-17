@@ -441,12 +441,12 @@ export default function App() {
               exit={{ opacity: 0, x: -20 }}
             >
               <MyBookings 
-                bookings={bookings.map(b => ({
+                bookings={bookings.filter(b => b.userId === user.uid).map(b => ({
                   ...b,
                   car: cars.find(c => c.id === b.carId)
                 }))} 
                 onCancel={cancelBooking}
-                isAdmin={userProfile?.role === 'admin'}
+                isAdmin={false}
               />
             </motion.div>
           )}
