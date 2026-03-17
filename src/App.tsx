@@ -234,9 +234,50 @@ export default function App() {
     }
   };
 
+  const cancelBooking = async (id: string) => {
+    try {
+      const booking = bookings.find(b => b.id === id);
+      if (!booking) return;
+      
+      await updateDoc(doc(db, 'bookings', id), { status: BookingStatus.CANCELLED });
+      await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.AVAILABLE });
+    } catch (err: any) {
+      console.error('Cancel booking error:', err);
+      setError(err.message);
+    }
+  };
+
+  const cancelBookingByCarId = async (carId: string) => {
+    if (!user) return;
+    try {
+      const booking = bookings.find(b => 
+        b.carId === carId && 
+        b.userId === user.uid && 
+        (b.status === BookingStatus.PENDING || b.status === BookingStatus.CONFIRMED)
+      );
+      if (!booking) return;
+      await cancelBooking(booking.id);
+    } catch (err: any) {
+      console.error('Cancel booking by car error:', err);
+      setError(err.message);
+    }
+  };
+
   const updateBookingStatus = async (id: string, status: string) => {
     try {
+      const booking = bookings.find(b => b.id === id);
+      if (!booking) return;
+
       await updateDoc(doc(db, 'bookings', id), { status });
+      
+      // If status is cancelled or completed, make car available again
+      if (status === BookingStatus.CANCELLED || status === BookingStatus.COMPLETED) {
+        await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.AVAILABLE });
+      }
+      // If status is confirmed, ensure car is rented (it should be already, but for safety)
+      else if (status === BookingStatus.CONFIRMED) {
+        await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.RENTED });
+      }
     } catch (err: any) {
       console.error('Update booking error:', err);
       setError(err.message);
@@ -372,14 +413,27 @@ export default function App() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {cars.map(car => (
-                  <CarCard key={car.id} car={car} onBook={handleBookCar} />
-                ))}
+                {cars.map(car => {
+                  const userBooking = bookings.find(b => 
+                    b.carId === car.id && 
+                    b.userId === user?.uid && 
+                    (b.status === BookingStatus.PENDING || b.status === BookingStatus.CONFIRMED)
+                  );
+                  return (
+                    <CarCard 
+                      key={car.id} 
+                      car={car} 
+                      onBook={handleBookCar} 
+                      onCancel={cancelBookingByCarId}
+                      isUserBooking={!!userBooking}
+                    />
+                  );
+                })}
               </div>
             </motion.div>
           )}
 
-          {currentPage === 'bookings' && (
+          {currentPage === 'bookings' && user && (
             <motion.div 
               key="bookings"
               initial={{ opacity: 0, x: 20 }}
@@ -391,6 +445,8 @@ export default function App() {
                   ...b,
                   car: cars.find(c => c.id === b.carId)
                 }))} 
+                onCancel={cancelBooking}
+                isAdmin={userProfile?.role === 'admin'}
               />
             </motion.div>
           )}

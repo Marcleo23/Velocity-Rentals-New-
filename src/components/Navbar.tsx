@@ -45,20 +45,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             Fleet
           </button>
           {user && (
-            <>
-              <button 
-                onClick={() => onNavigate('bookings')}
-                className={`text-sm font-medium transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white'}`}
-              >
-                My Bookings
-              </button>
-              <button 
-                onClick={() => onNavigate('profile')}
-                className={`text-sm font-medium transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white'}`}
-              >
-                Profile
-              </button>
-            </>
+            <button 
+              onClick={() => onNavigate('bookings')}
+              className={`text-sm font-medium transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white'}`}
+            >
+              {isAdmin ? 'Bookings' : 'My Bookings'}
+            </button>
+          )}
+          {user && (
+            <button 
+              onClick={() => onNavigate('profile')}
+              className={`text-sm font-medium transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white'}`}
+            >
+              Profile
+            </button>
           )}
           {isAdmin && (
             <button 

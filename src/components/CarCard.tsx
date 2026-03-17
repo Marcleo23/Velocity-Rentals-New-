@@ -5,9 +5,11 @@ import { Car as CarType, CarStatus } from '../types';
 interface CarCardProps {
   car: CarType;
   onBook: (car: CarType) => void;
+  onCancel?: (carId: string) => void;
+  isUserBooking?: boolean;
 }
 
-export const CarCard: React.FC<CarCardProps> = ({ car, onBook }) => {
+export const CarCard: React.FC<CarCardProps> = ({ car, onBook, onCancel, isUserBooking }) => {
   const isAvailable = car.status === CarStatus.AVAILABLE;
 
   return (
@@ -53,22 +55,35 @@ export const CarCard: React.FC<CarCardProps> = ({ car, onBook }) => {
           </div>
         </div>
 
-        <button 
-          onClick={() => onBook(car)}
-          disabled={!isAvailable}
-          className={`w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-sm transition-all ${
-            isAvailable 
-              ? 'bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 active:scale-[0.98]' 
-              : 'bg-black/5 dark:bg-white/5 text-black/20 dark:text-white/20 cursor-not-allowed'
-          }`}
-        >
-          {isAvailable ? (
-            <>
-              Book Now
-              <ArrowRight className="w-4 h-4" />
-            </>
-          ) : 'Currently Unavailable'}
-        </button>
+        {isUserBooking ? (
+          <button 
+            onClick={() => {
+              if (window.confirm('Are you sure you want to cancel your booking for this car?')) {
+                onCancel?.(car.id);
+              }
+            }}
+            className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-sm transition-all bg-rose-500 text-white hover:bg-rose-600 active:scale-[0.98]"
+          >
+            Cancel Booking
+          </button>
+        ) : (
+          <button 
+            onClick={() => onBook(car)}
+            disabled={!isAvailable}
+            className={`w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-sm transition-all ${
+              isAvailable 
+                ? 'bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 active:scale-[0.98]' 
+                : 'bg-black/5 dark:bg-white/5 text-black/20 dark:text-white/20 cursor-not-allowed'
+            }`}
+          >
+            {isAvailable ? (
+              <>
+                Book Now
+                <ArrowRight className="w-4 h-4" />
+              </>
+            ) : 'Currently Unavailable'}
+          </button>
+        )}
       </div>
     </div>
   );

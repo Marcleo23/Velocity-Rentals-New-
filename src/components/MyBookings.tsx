@@ -4,9 +4,11 @@ import { Booking, Car, BookingStatus } from '../types';
 
 interface MyBookingsProps {
   bookings: (Booking & { car?: Car })[];
+  onCancel?: (id: string) => void;
+  isAdmin?: boolean;
 }
 
-export const MyBookings: React.FC<MyBookingsProps> = ({ bookings }) => {
+export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, isAdmin }) => {
   const getStatusColor = (status: BookingStatus) => {
     switch (status) {
       case BookingStatus.CONFIRMED: return 'bg-emerald-500';
@@ -29,8 +31,12 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings }) => {
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
       <div className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-2 dark:text-white">My Bookings</h1>
-        <p className="text-black/40 dark:text-white/40 font-medium">Manage your current and past rentals</p>
+        <h1 className="text-4xl font-bold tracking-tight mb-2 dark:text-white">
+          {isAdmin ? 'All Bookings' : 'My Bookings'}
+        </h1>
+        <p className="text-black/40 dark:text-white/40 font-medium">
+          {isAdmin ? 'Manage all customer rentals' : 'Manage your current and past rentals'}
+        </p>
       </div>
 
       <div className="space-y-4">
@@ -49,7 +55,12 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings }) => {
 
               <div className="flex-1 w-full">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-bold dark:text-white">{booking.car?.make} {booking.car?.model}</h3>
+                  <div className="flex flex-col">
+                    <h3 className="text-lg font-bold dark:text-white">{booking.car?.make} {booking.car?.model}</h3>
+                    {isAdmin && booking.userEmail && (
+                      <span className="text-xs text-black/40 dark:text-white/40 font-medium">{booking.userEmail}</span>
+                    )}
+                  </div>
                   <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider ${getStatusColor(booking.status)}`}>
                     {getStatusIcon(booking.status)}
                     {booking.status}
@@ -78,9 +89,23 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings }) => {
                 </div>
               </div>
 
-              <button className="p-4 bg-black/5 dark:bg-white/5 rounded-2xl group-hover:bg-black dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-all">
-                <ChevronRight className="w-5 h-5" />
-              </button>
+              <div className="flex flex-col gap-2">
+                <button className="p-4 bg-black/5 dark:bg-white/5 rounded-2xl group-hover:bg-black dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-all">
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                {(booking.status === BookingStatus.PENDING || booking.status === BookingStatus.CONFIRMED) && (
+                  <button 
+                    onClick={() => {
+                      if (window.confirm('Are you sure you want to cancel this booking?')) {
+                        onCancel?.(booking.id);
+                      }
+                    }}
+                    className="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
             </div>
           ))
         )}

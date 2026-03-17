@@ -121,8 +121,8 @@ service cloud.firestore {
       allow update: if (isAdmin() && isValidCar(request.resource.data)) || 
                       (isAuthenticated() && 
                        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) &&
-                       resource.data.status == 'available' &&
-                       request.resource.data.status == 'rented');
+                       ((resource.data.status == 'available' && request.resource.data.status == 'rented') ||
+                        (resource.data.status == 'rented' && request.resource.data.status == 'available')));
       allow delete: if isAdmin();
     }
 
@@ -130,7 +130,7 @@ service cloud.firestore {
       allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
       allow create: if isAuthenticated() && isValidBooking(request.resource.data);
       allow update: if isAuthenticated() && (
-        (resource.data.userId == request.auth.uid && request.resource.data.status == 'cancelled' && resource.data.status == 'pending') ||
+        (resource.data.userId == request.auth.uid && request.resource.data.status == 'cancelled' && (resource.data.status == 'pending' || resource.data.status == 'confirmed')) ||
         isAdmin()
       );
       allow delete: if isAdmin();
