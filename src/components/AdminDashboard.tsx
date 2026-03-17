@@ -65,12 +65,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           >
             Fleet
           </button>
-          <button 
-            onClick={() => setActiveTab('bookings')}
-            className={`px-6 py-2 rounded-xl text-sm font-bold transition-all ${activeTab === 'bookings' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
-          >
-            All Bookings
-          </button>
           {users.length > 0 && (
             <button 
               onClick={() => setActiveTab('users')}
@@ -177,53 +171,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         <button onClick={() => onDeleteCar(car.id)} className="p-2 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors"><Trash2 className="w-4 h-4 text-rose-500" /></button>
                       </div>
                     </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ) : activeTab === 'bookings' ? (
-        <div className="bg-white dark:bg-black rounded-[32px] border border-black/5 dark:border-white/5 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-b border-black/5 dark:border-white/5">
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Customer</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Vehicle</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Period</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest text-right">Total</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black/5 dark:divide-white/5">
-                {bookings.map((booking) => (
-                  <tr key={booking.id} className="hover:bg-black/[0.01] dark:hover:bg-white/[0.01] transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-bold dark:text-white">{booking.userEmail}</div>
-                      <div className="text-[10px] text-black/40 dark:text-white/40 font-medium">ID: {booking.userId.slice(0, 8)}...</div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-bold dark:text-white">{booking.car?.make} {booking.car?.model}</div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-[10px] font-bold text-black/60 dark:text-white/60">
-                        {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <select 
-                        value={booking.status}
-                        onChange={(e) => onUpdateBookingStatus(booking.id, e.target.value)}
-                        className="text-[10px] font-bold uppercase tracking-wider bg-black/5 dark:bg-white/5 border-none rounded-lg px-2 py-1 outline-none focus:ring-1 focus:ring-black/10 dark:focus:ring-white/10 dark:text-white dark:bg-black"
-                      >
-                        <option value="pending">Pending</option>
-                        <option value="confirmed">Confirmed</option>
-                        <option value="cancelled">Cancelled</option>
-                        <option value="completed">Completed</option>
-                      </select>
-                    </td>
-                    <td className="px-6 py-4 text-right font-bold text-sm dark:text-white">${booking.totalPrice}</td>
                   </tr>
                 ))}
               </tbody>

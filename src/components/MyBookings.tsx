@@ -1,5 +1,5 @@
-import React from 'react';
-import { Calendar, Clock, CheckCircle2, XCircle, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, Clock, CheckCircle2, XCircle, ChevronRight, Filter } from 'lucide-react';
 import { Booking, Car, BookingStatus } from '../types';
 
 interface MyBookingsProps {
@@ -9,6 +9,8 @@ interface MyBookingsProps {
 }
 
 export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, isAdmin }) => {
+  const [activeTab, setActiveTab] = useState<'pending' | 'successful' | 'cancelled'>('pending');
+
   const getStatusColor = (status: BookingStatus) => {
     switch (status) {
       case BookingStatus.CONFIRMED: return 'bg-emerald-500';
@@ -28,24 +30,57 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, isAd
     }
   };
 
+  const filteredBookings = bookings.filter(booking => {
+    if (activeTab === 'pending') return booking.status === BookingStatus.PENDING;
+    if (activeTab === 'successful') return booking.status === BookingStatus.CONFIRMED || booking.status === BookingStatus.COMPLETED;
+    if (activeTab === 'cancelled') return booking.status === BookingStatus.CANCELLED;
+    return true;
+  });
+
   return (
     <div className="max-w-4xl mx-auto py-12 px-6">
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-2 dark:text-white">
-          {isAdmin ? 'All Bookings' : 'My Bookings'}
-        </h1>
-        <p className="text-black/40 dark:text-white/40 font-medium">
-          {isAdmin ? 'Manage all customer rentals' : 'Manage your current and past rentals'}
-        </p>
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight mb-2 dark:text-white">
+            {isAdmin ? 'All Bookings' : 'My Bookings'}
+          </h1>
+          <p className="text-black/40 dark:text-white/40 font-medium">
+            {isAdmin ? 'Manage all customer rentals' : 'Manage your current and past rentals'}
+          </p>
+        </div>
+
+        <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-2xl">
+          <button 
+            onClick={() => setActiveTab('pending')}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'pending' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+          >
+            Pending
+            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.PENDING).length}</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('successful')}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'successful' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+          >
+            Successful
+            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CONFIRMED || b.status === BookingStatus.COMPLETED).length}</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('cancelled')}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+          >
+            Cancelled
+            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CANCELLED).length}</span>
+          </button>
+        </div>
       </div>
 
       <div className="space-y-4">
-        {bookings.length === 0 ? (
+        {filteredBookings.length === 0 ? (
           <div className="text-center py-20 bg-black/5 dark:bg-white/5 rounded-[32px] border border-dashed border-black/10 dark:border-white/10">
-            <p className="text-black/40 dark:text-white/40 font-medium">No bookings found yet.</p>
+            <p className="text-black/40 dark:text-white/40 font-medium">No {activeTab} bookings found.</p>
           </div>
         ) : (
-          bookings.map((booking) => (
+          filteredBookings.map((booking) => (
             <div key={booking.id} className="group bg-white dark:bg-black p-6 rounded-[32px] border border-black/5 dark:border-white/5 flex flex-col md:flex-row items-center gap-6 transition-all hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5">
               <div className="w-full md:w-48 aspect-[16/10] bg-neutral-100 dark:bg-neutral-900 rounded-2xl overflow-hidden">
                 {booking.car && (
