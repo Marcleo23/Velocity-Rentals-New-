@@ -117,7 +117,13 @@ service cloud.firestore {
 
     match /cars/{carId} {
       allow read: if true; // Publicly viewable fleet
-      allow write: if isAdmin() && isValidCar(request.resource.data);
+      allow create: if isAdmin() && isValidCar(request.resource.data);
+      allow update: if (isAdmin() && isValidCar(request.resource.data)) || 
+                      (isAuthenticated() && 
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) &&
+                       resource.data.status == 'available' &&
+                       request.resource.data.status == 'rented');
+      allow delete: if isAdmin();
     }
 
     match /bookings/{bookingId} {
