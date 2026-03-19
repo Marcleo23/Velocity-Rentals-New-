@@ -147,77 +147,95 @@ export const Navbar: React.FC<NavbarProps> = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMenuOpen(false)}
-              className="md:hidden fixed inset-0 top-[72px] bg-black/20 backdrop-blur-sm z-30"
+              className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-[90]"
             />
             <motion.div 
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+              initial={{ y: '-100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-[72px] right-0 w-[50%] h-[70%] bg-white dark:bg-black z-40 overflow-y-auto px-6 py-8 border-l border-b border-black/5 dark:border-white/5 shadow-2xl rounded-bl-[32px]"
+              className="md:hidden fixed top-0 left-0 right-0 h-[92vh] bg-white dark:bg-black z-[100] overflow-y-auto flex flex-col rounded-b-[40px] shadow-2xl border-b border-black/5 dark:border-white/5"
             >
-              <div className="flex flex-col gap-8">
-                <div className="flex flex-col gap-4">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/30 dark:text-white/30 mb-2">Navigation</p>
-                  <button 
-                    id="mobile-nav-fleet-btn"
-                    onClick={() => handleNavigate('home')}
-                    className={`text-xl font-bold text-left transition-colors ${currentPage === 'home' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
-                  >
-                    Fleet
-                  </button>
-                  {user && (
+              {/* Full Screen Menu Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-black/5 dark:border-white/5">
+                <div className="flex items-center gap-2">
+                  <div className="bg-black dark:bg-white p-2 rounded-lg">
+                    <Car className="text-white dark:text-black w-6 h-6" />
+                  </div>
+                  <span className="font-bold text-xl tracking-tight dark:text-white">VELOCITY</span>
+                </div>
+                <button 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-black dark:text-white"
+                >
+                  <X className="w-8 h-8" />
+                </button>
+              </div>
+
+              <div className="flex-1 px-8 py-10 flex flex-col justify-between">
+                <div className="space-y-8">
+                  <div className="flex flex-col gap-4">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-black/30 dark:text-white/30">Navigation</p>
                     <button 
-                      id="mobile-nav-bookings-btn"
-                      onClick={() => handleNavigate('bookings')}
-                      className={`text-xl font-bold text-left transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
+                      id="mobile-nav-fleet-btn"
+                      onClick={() => handleNavigate('home')}
+                      className={`text-4xl font-bold text-left transition-colors ${currentPage === 'home' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
                     >
-                      {userProfile?.role === 'admin' ? 'Bookings' : 'My Bookings'}
+                      Fleet
                     </button>
-                  )}
-                  {user && (
-                    <button 
-                      id="mobile-nav-profile-btn"
-                      onClick={() => handleNavigate('profile')}
-                      className={`text-xl font-bold text-left transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
-                    >
-                      Profile
-                    </button>
-                  )}
-                  {isAdmin && (
-                    <button 
-                      id="mobile-nav-admin-btn"
-                      onClick={() => handleNavigate('admin')}
-                      className={`text-xl font-bold text-left transition-colors ${currentPage === 'admin' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
-                    >
-                      Admin
-                    </button>
-                  )}
+                    {user && (
+                      <button 
+                        id="mobile-nav-bookings-btn"
+                        onClick={() => handleNavigate('bookings')}
+                        className={`text-4xl font-bold text-left transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
+                      >
+                        {userProfile?.role === 'admin' ? 'Bookings' : 'My Bookings'}
+                      </button>
+                    )}
+                    {user && (
+                      <button 
+                        id="mobile-nav-profile-btn"
+                        onClick={() => handleNavigate('profile')}
+                        className={`text-4xl font-bold text-left transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
+                      >
+                        Profile
+                      </button>
+                    )}
+                    {isAdmin && (
+                      <button 
+                        id="mobile-nav-admin-btn"
+                        onClick={() => handleNavigate('admin')}
+                        className={`text-4xl font-bold text-left transition-colors ${currentPage === 'admin' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
+                      >
+                        Admin
+                      </button>
+                    )}
+                  </div>
                 </div>
 
-                <div className="pt-8 border-t border-black/5 dark:border-white/5">
+                <div className="pt-10 border-t border-black/5 dark:border-white/5 mt-auto">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-black/30 dark:text-white/30 mb-6">Account</p>
                   {user ? (
                     <div className="flex flex-col gap-6">
-                      <div className="flex flex-col gap-4">
+                      <div className="flex items-center gap-4">
                         {user.photoURL ? (
-                          <img src={user.photoURL} alt="" className="w-12 h-12 rounded-full border-2 border-black/10 dark:border-white/10" referrerPolicy="no-referrer" />
+                          <img src={user.photoURL} alt="" className="w-16 h-16 rounded-full border-2 border-black/10 dark:border-white/10" referrerPolicy="no-referrer" />
                         ) : (
-                          <div className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center">
-                            <User className="w-5 h-5 text-black/40 dark:text-white/40" />
+                          <div className="w-16 h-16 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center">
+                            <User className="w-8 h-8 text-black/40 dark:text-white/40" />
                           </div>
                         )}
                         <div>
-                          <p className="text-sm font-bold dark:text-white truncate">{userProfile?.displayName || user.displayName}</p>
-                          <p className="text-[10px] text-black/40 dark:text-white/40 truncate">{user.email}</p>
+                          <p className="text-xl font-bold dark:text-white">{userProfile?.displayName || user.displayName}</p>
+                          <p className="text-xs text-black/40 dark:text-white/40">{user.email}</p>
                         </div>
                       </div>
                       <button 
                         id="mobile-logout-btn"
                         onClick={onLogout}
-                        className="w-full bg-rose-500 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-500/20"
+                        className="w-full bg-rose-500 text-white py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 shadow-xl shadow-rose-500/20"
                       >
-                        <LogOut className="w-4 h-4" />
+                        <LogOut className="w-5 h-5" />
                         Sign Out
                       </button>
                     </div>
@@ -225,9 +243,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button 
                       id="mobile-login-btn"
                       onClick={onLogin}
-                      className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-xl font-bold text-sm shadow-xl shadow-black/10 dark:shadow-white/5"
+                      className="w-full bg-black dark:bg-white text-white dark:text-black py-5 rounded-2xl font-bold text-lg shadow-2xl shadow-black/10 dark:shadow-white/5"
                     >
-                      Sign In
+                      Sign In to Velocity
                     </button>
                   )}
                 </div>
