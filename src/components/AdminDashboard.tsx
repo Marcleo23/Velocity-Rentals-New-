@@ -46,13 +46,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   const handleSaveCar = async (carData: Omit<Car, 'id'> | Car) => {
-    if ('id' in carData) {
-      const { id, ...updates } = carData;
-      await onUpdateCar(id, updates);
-    } else {
-      await onAddCar(carData);
+    try {
+      if ('id' in carData) {
+        const { id, ...updates } = carData;
+        await onUpdateCar(id, updates);
+      } else {
+        await onAddCar(carData);
+      }
+      setIsCarModalOpen(false);
+    } catch (err: any) {
+      console.error('Save car error:', err);
+      throw err;
     }
-    setIsCarModalOpen(false);
   };
 
   const handleViewBookingDetails = (booking: Booking & { car?: Car; userEmail?: string }) => {

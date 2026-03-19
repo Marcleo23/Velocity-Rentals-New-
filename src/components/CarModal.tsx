@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Save, Car as CarIcon, Image as ImageIcon, DollarSign, Settings, Users, Fuel, Upload } from 'lucide-react';
+import { X, Save, Car as CarIcon, Image as ImageIcon, DollarSign, Settings, Users, Fuel, Upload, XCircle } from 'lucide-react';
 import { Car, CarStatus } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -12,6 +12,7 @@ interface CarModalProps {
 
 export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState<Omit<Car, 'id'>>({
     make: '',
@@ -54,11 +55,13 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       await onSave(car ? { ...formData, id: car.id } as Car : formData);
       onClose();
-    } catch (error) {
-      console.error('Save failed:', error);
+    } catch (err: any) {
+      console.error('Save failed:', err);
+      setError(err.message || 'Failed to save vehicle. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -134,6 +137,12 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
           </div>
 
           <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-8 space-y-8">
+            {error && (
+              <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center gap-3 text-red-500 text-sm font-medium">
+                <XCircle className="w-5 h-5 flex-shrink-0" />
+                {error}
+              </div>
+            )}
             {/* Basic Info */}
             <section className="space-y-4">
               <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Basic Information</h3>

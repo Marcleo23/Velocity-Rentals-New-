@@ -69,7 +69,7 @@ service cloud.firestore {
              data.transmission is string && data.transmission.size() < 50 &&
              data.fuelType is string && data.fuelType.size() < 50 &&
              data.seats is number && data.seats > 0 && data.seats < 100 &&
-             data.imageUrl is string && data.imageUrl.size() < 1000000 &&
+             data.imageUrl is string && data.imageUrl.size() < 2000000 &&
              data.status in ['available', 'rented', 'maintenance'] &&
              data.description is string && data.description.size() < 2000 &&
              data.features is list && data.features.size() < 50;

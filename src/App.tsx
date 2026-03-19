@@ -319,6 +319,7 @@ export default function App() {
     } catch (err: any) {
       console.error('Add car error:', err);
       setError(err.message);
+      throw err;
     }
   };
 
@@ -328,6 +329,7 @@ export default function App() {
     } catch (err: any) {
       console.error('Update car error:', err);
       setError(err.message);
+      throw err;
     }
   };
 
