@@ -93,8 +93,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
           </button>
 
-          {/* Desktop User Info */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* User Info / Login Action */}
+          <div className={`${user ? 'hidden md:flex' : 'flex'} items-center gap-4`}>
             {user ? (
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -120,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button 
                 id="login-btn"
                 onClick={onLogin}
-                className="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-black/90 dark:hover:bg-white/90 transition-all active:scale-95"
+                className="bg-black dark:bg-white text-white dark:text-black px-4 py-1.5 md:px-6 md:py-2 rounded-full text-xs md:text-sm font-medium hover:bg-black/90 dark:hover:bg-white/90 transition-all active:scale-95 whitespace-nowrap"
               >
                 Sign In
               </button>

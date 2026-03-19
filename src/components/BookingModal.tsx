@@ -21,7 +21,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
     const end = new Date(endDate);
     const diffTime = Math.abs(end.getTime() - start.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
-    return diffDays * car.pricePerDay;
+    const total = diffDays * car.pricePerDay;
+    return isNaN(total) ? 0 : total;
   };
 
   const totalPrice = calculateTotal();

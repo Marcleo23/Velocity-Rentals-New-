@@ -175,8 +175,11 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                   <input 
                     required
                     type="number" 
-                    value={formData.year}
-                    onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
+                    value={isNaN(formData.year) ? '' : String(formData.year)}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      setFormData({ ...formData, year: isNaN(val) ? 0 : val });
+                    }}
                     className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
@@ -235,8 +238,11 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                   </label>
                   <input 
                     type="number" 
-                    value={formData.seats}
-                    onChange={(e) => setFormData({ ...formData, seats: parseInt(e.target.value) })}
+                    value={isNaN(formData.seats) ? '' : String(formData.seats)}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      setFormData({ ...formData, seats: isNaN(val) ? 0 : val });
+                    }}
                     className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
@@ -254,8 +260,11 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                   <input 
                     required
                     type="number" 
-                    value={formData.pricePerDay}
-                    onChange={(e) => setFormData({ ...formData, pricePerDay: parseFloat(e.target.value) })}
+                    value={isNaN(formData.pricePerDay) ? '' : String(formData.pricePerDay)}
+                    onChange={(e) => {
+                      const val = parseFloat(e.target.value);
+                      setFormData({ ...formData, pricePerDay: isNaN(val) ? 0 : val });
+                    }}
                     className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>

@@ -40,7 +40,8 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
       if (stats[dateStr]) {
         stats[dateStr].bookings += 1;
         if (booking.status !== BookingStatus.CANCELLED) {
-          stats[dateStr].revenue += booking.totalPrice;
+          const price = typeof booking.totalPrice === 'number' && !isNaN(booking.totalPrice) ? booking.totalPrice : 0;
+          stats[dateStr].revenue += price;
         }
       }
     });
