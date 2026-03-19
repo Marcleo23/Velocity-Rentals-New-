@@ -52,7 +52,12 @@ export default function App() {
             const data = userDoc.data() as UserProfile;
             // Ensure super admin always has admin role in state and DB
             if (firebaseUser.email === 'leom57583@gmail.com' && data.role !== 'admin') {
-              await updateDoc(doc(db, 'users', firebaseUser.uid), { role: 'admin' });
+              const userRef = doc(db, 'users', firebaseUser.uid);
+              try {
+                await updateDoc(userRef, { role: 'admin' });
+              } catch (err) {
+                handleFirestoreError(err, OperationType.UPDATE, 'users/' + firebaseUser.uid);
+              }
               data.role = 'admin';
             }
             setUserProfile(data);
@@ -65,7 +70,11 @@ export default function App() {
               photoURL: firebaseUser.photoURL || undefined,
               role: firebaseUser.email === 'leom57583@gmail.com' ? 'admin' : 'user'
             };
-            await setDoc(doc(db, 'users', firebaseUser.uid), newProfile);
+            try {
+              await setDoc(doc(db, 'users', firebaseUser.uid), newProfile);
+            } catch (err) {
+              handleFirestoreError(err, OperationType.WRITE, 'users/' + firebaseUser.uid);
+            }
             setUserProfile(newProfile);
           }
         } else {
@@ -185,7 +194,11 @@ export default function App() {
       ];
 
       for (const car of initialCars) {
-        await addDoc(collection(db, 'cars'), car);
+        try {
+          await addDoc(collection(db, 'cars'), car);
+        } catch (err) {
+          handleFirestoreError(err, OperationType.CREATE, 'cars');
+        }
       }
     } catch (err) {
       console.error('Seed error:', err);
@@ -229,8 +242,17 @@ export default function App() {
         createdAt: new Date().toISOString()
       };
 
-      await addDoc(collection(db, 'bookings'), bookingData);
-      await updateDoc(doc(db, 'cars', selectedCar.id), { status: CarStatus.RENTED });
+      try {
+        await addDoc(collection(db, 'bookings'), bookingData);
+      } catch (err) {
+        handleFirestoreError(err, OperationType.CREATE, 'bookings');
+      }
+
+      try {
+        await updateDoc(doc(db, 'cars', selectedCar.id), { status: CarStatus.RENTED });
+      } catch (err) {
+        handleFirestoreError(err, OperationType.UPDATE, 'cars/' + selectedCar.id);
+      }
       
       setSelectedCar(null);
       setCurrentPage('bookings');
@@ -245,8 +267,17 @@ export default function App() {
       const booking = bookings.find(b => b.id === id);
       if (!booking) return;
       
-      await updateDoc(doc(db, 'bookings', id), { status: BookingStatus.CANCELLED });
-      await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.AVAILABLE });
+      try {
+        await updateDoc(doc(db, 'bookings', id), { status: BookingStatus.CANCELLED });
+      } catch (err) {
+        handleFirestoreError(err, OperationType.UPDATE, 'bookings/' + id);
+      }
+
+      try {
+        await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.AVAILABLE });
+      } catch (err) {
+        handleFirestoreError(err, OperationType.UPDATE, 'cars/' + booking.carId);
+      }
     } catch (err: any) {
       console.error('Cancel booking error:', err);
       setError(err.message);
@@ -274,15 +305,27 @@ export default function App() {
       const booking = bookings.find(b => b.id === id);
       if (!booking) return;
 
-      await updateDoc(doc(db, 'bookings', id), { status });
+      try {
+        await updateDoc(doc(db, 'bookings', id), { status });
+      } catch (err) {
+        handleFirestoreError(err, OperationType.UPDATE, 'bookings/' + id);
+      }
       
       // If status is cancelled or completed, make car available again
       if (status === BookingStatus.CANCELLED || status === BookingStatus.COMPLETED) {
-        await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.AVAILABLE });
+        try {
+          await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.AVAILABLE });
+        } catch (err) {
+          handleFirestoreError(err, OperationType.UPDATE, 'cars/' + booking.carId);
+        }
       }
       // If status is confirmed, ensure car is rented (it should be already, but for safety)
       else if (status === BookingStatus.CONFIRMED) {
-        await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.RENTED });
+        try {
+          await updateDoc(doc(db, 'cars', booking.carId), { status: CarStatus.RENTED });
+        } catch (err) {
+          handleFirestoreError(err, OperationType.UPDATE, 'cars/' + booking.carId);
+        }
       }
     } catch (err: any) {
       console.error('Update booking error:', err);
@@ -294,8 +337,7 @@ export default function App() {
     try {
       await updateDoc(doc(db, 'users', uid), { role });
     } catch (err: any) {
-      console.error('Update user role error:', err);
-      setError(err.message);
+      handleFirestoreError(err, OperationType.UPDATE, 'users/' + uid);
     }
   };
 
@@ -303,8 +345,7 @@ export default function App() {
     try {
       await deleteDoc(doc(db, 'users', uid));
     } catch (err: any) {
-      console.error('Delete user error:', err);
-      setError(err.message);
+      handleFirestoreError(err, OperationType.DELETE, 'users/' + uid);
     }
   };
 
@@ -314,8 +355,7 @@ export default function App() {
       await updateDoc(doc(db, 'users', user.uid), updates);
       setUserProfile(prev => prev ? { ...prev, ...updates } : null);
     } catch (err: any) {
-      console.error('Update profile error:', err);
-      setError(err.message);
+      handleFirestoreError(err, OperationType.UPDATE, 'users/' + user.uid);
     }
   };
 
@@ -323,8 +363,7 @@ export default function App() {
     try {
       await addDoc(collection(db, 'cars'), carData);
     } catch (err: any) {
-      console.error('Add car error:', err);
-      setError(err.message);
+      handleFirestoreError(err, OperationType.CREATE, 'cars');
       throw err;
     }
   };
@@ -333,8 +372,7 @@ export default function App() {
     try {
       await updateDoc(doc(db, 'cars', id), updates);
     } catch (err: any) {
-      console.error('Update car error:', err);
-      setError(err.message);
+      handleFirestoreError(err, OperationType.UPDATE, 'cars/' + id);
       throw err;
     }
   };
@@ -343,8 +381,7 @@ export default function App() {
     try {
       await deleteDoc(doc(db, 'cars', id));
     } catch (err: any) {
-      console.error('Delete car error:', err);
-      setError(err.message);
+      handleFirestoreError(err, OperationType.DELETE, 'cars/' + id);
     }
   };
 
@@ -375,6 +412,7 @@ export default function App() {
           <h2 className="text-xl font-bold mb-2 dark:text-white">Application Error</h2>
           <p className="text-black/60 dark:text-white/60 text-sm mb-6">{displayMessage}</p>
           <button 
+            id="error-reload-btn"
             onClick={() => {
               setError(null);
               window.location.reload();
@@ -425,7 +463,7 @@ export default function App() {
               className="max-w-7xl mx-auto px-6"
             >
               <div className="relative mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 overflow-hidden">
-                <div className="z-10 relative">
+                <div id="hero-text-container" className="z-10 relative">
                   <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[0.9] dark:text-white">
                     Drive the <br />
                     <span className="text-black/20 dark:text-white/20 italic">Extraordinary.</span>
@@ -437,6 +475,7 @@ export default function App() {
 
                 {/* Decorative Car for Ambiance */}
                 <motion.div 
+                  id="hero-image-container"
                   initial={{ x: 100, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
@@ -444,6 +483,7 @@ export default function App() {
                 >
                   <div className="relative">
                     <img 
+                      id="hero-car-image"
                       src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1000" 
                       alt="" 
                       className="w-full h-auto object-contain opacity-20 dark:opacity-30 grayscale hover:grayscale-0 transition-all duration-700 mask-linear-to-l"

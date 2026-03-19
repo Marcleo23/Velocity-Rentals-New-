@@ -5,7 +5,7 @@ import {
   updateProfile as updateFirebaseProfile
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { auth, db, handleFirestoreError, OperationType } from '../firebase';
 import { X, User, Mail, Lock, Phone, FileText, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -41,8 +41,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         if (username.length < 3) throw new Error('Username must be at least 3 characters');
         
         const usernameLower = username.toLowerCase();
-        const usernameDoc = await getDoc(doc(db, 'usernames', usernameLower));
-        if (usernameDoc.exists()) {
+        let usernameDoc;
+        try {
+          usernameDoc = await getDoc(doc(db, 'usernames', usernameLower));
+        } catch (err) {
+          handleFirestoreError(err, OperationType.GET, 'usernames/' + usernameLower);
+        }
+
+        if (usernameDoc?.exists()) {
           throw new Error('Username already taken');
         }
 
@@ -65,11 +71,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           role: email === 'leom57583@gmail.com' ? 'admin' : 'user'
         };
 
-        await setDoc(doc(db, 'users', user.uid), profileData);
-        await setDoc(doc(db, 'usernames', usernameLower), { 
-          email, 
-          uid: user.uid 
-        });
+        try {
+          await setDoc(doc(db, 'users', user.uid), profileData);
+        } catch (err) {
+          handleFirestoreError(err, OperationType.WRITE, 'users/' + user.uid);
+        }
+
+        try {
+          await setDoc(doc(db, 'usernames', usernameLower), { 
+            email, 
+            uid: user.uid 
+          });
+        } catch (err) {
+          handleFirestoreError(err, OperationType.WRITE, 'usernames/' + usernameLower);
+        }
       }
       onClose();
     } catch (err: any) {
@@ -110,6 +125,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 </p>
               </div>
               <button 
+                id="auth-modal-close-btn"
                 onClick={onClose}
                 className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-black dark:text-white"
               >
@@ -131,6 +147,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                   <input 
+                    id="auth-email-input"
                     required
                     type="email" 
                     placeholder="Email"
@@ -146,6 +163,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   <div className="relative">
                     <UserCircle className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                     <input 
+                      id="auth-fullname-input"
                       required
                       type="text" 
                       placeholder="Full Name"
@@ -157,6 +175,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   <div className="relative">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                     <input 
+                      id="auth-username-input"
                       required
                       type="text" 
                       placeholder="Username"
@@ -168,6 +187,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                     <input 
+                      id="auth-phone-input"
                       required
                       type="tel" 
                       placeholder="Phone Number"
@@ -179,6 +199,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                   <div className="relative">
                     <FileText className="absolute left-4 top-4 w-5 h-5 text-black/20 dark:text-white/40" />
                     <textarea 
+                      id="auth-bio-input"
                       required
                       placeholder="Bio"
                       rows={3}
@@ -193,6 +214,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                 <input 
+                  id="auth-password-input"
                   required
                   type="password" 
                   placeholder="Password"
@@ -203,6 +225,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               <button 
+                id="auth-submit-btn"
                 type="submit"
                 disabled={loading}
                 className="w-full py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-sm hover:bg-black/90 dark:hover:bg-white/90 transition-all active:scale-[0.98] disabled:opacity-50 mt-4"
@@ -217,6 +240,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
             <div className="mt-8 text-center">
               <button 
+                id="auth-toggle-btn"
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-sm font-bold text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors"
               >

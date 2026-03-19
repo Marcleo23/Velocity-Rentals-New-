@@ -46,7 +46,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
           <div className="p-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold dark:text-white">Book Your Ride</h2>
-              <button onClick={onClose} className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-black dark:text-white">
+              <button 
+                id="booking-modal-close-btn"
+                onClick={onClose} 
+                className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-black dark:text-white"
+              >
                 <X className="w-6 h-6" />
               </button>
             </div>
@@ -66,6 +70,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
                   <div className="relative">
                     <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/40" />
                     <input 
+                      id="booking-start-date"
                       type="date" 
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
@@ -79,6 +84,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
                   <div className="relative">
                     <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/40" />
                     <input 
+                      id="booking-end-date"
                       type="date" 
                       value={endDate}
                       onChange={(e) => setEndDate(e.target.value)}
@@ -101,6 +107,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
               </div>
 
               <button 
+                id="booking-confirm-btn"
                 onClick={() => onConfirm({ startDate, endDate, totalPrice })}
                 disabled={!startDate || !endDate || totalPrice <= 0}
                 className="w-full flex items-center justify-center gap-2 py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-sm hover:bg-black/90 dark:hover:bg-white/90 transition-all active:scale-[0.98] disabled:opacity-20 disabled:cursor-not-allowed"

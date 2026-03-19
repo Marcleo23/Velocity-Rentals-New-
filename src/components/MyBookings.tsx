@@ -60,6 +60,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
 
         <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-2xl">
           <button 
+            id="bookings-tab-pending"
             onClick={() => setActiveTab('pending')}
             className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'pending' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
           >
@@ -67,6 +68,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
             <span className="opacity-60">{bookings.filter(b => b.status === BookingStatus.PENDING).length}</span>
           </button>
           <button 
+            id="bookings-tab-successful"
             onClick={() => setActiveTab('successful')}
             className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'successful' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
           >
@@ -75,6 +77,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
           </button>
           {isAdmin && (
             <button 
+              id="bookings-tab-cancelled"
               onClick={() => setActiveTab('cancelled')}
               className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
             >
@@ -109,6 +112,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
                   </div>
                   {isAdmin ? (
                     <select 
+                      id={`booking-status-select-${booking.id}`}
                       value={booking.status}
                       onChange={(e) => onUpdateStatus?.(booking.id, e.target.value)}
                       className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-[10px] font-bold uppercase tracking-wider border-none outline-none focus:ring-2 focus:ring-white/20 ${getStatusColor(booking.status)}`}
@@ -150,6 +154,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
 
               <div className="flex flex-col gap-2">
                 <button 
+                  id={`booking-view-details-${booking.id}`}
                   onClick={() => handleViewDetails(booking)}
                   className="p-4 bg-black/5 dark:bg-white/5 rounded-2xl group-hover:bg-black dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-all"
                 >
@@ -157,6 +162,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
                 </button>
                 {(booking.status === BookingStatus.PENDING || booking.status === BookingStatus.CONFIRMED) && (
                   <button 
+                    id={`booking-cancel-${booking.id}`}
                     onClick={() => onCancel?.(booking.id)}
                     className="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all"
                   >

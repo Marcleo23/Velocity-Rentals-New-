@@ -129,6 +129,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
               </div>
             </div>
             <button 
+              id="car-modal-close-btn"
               onClick={onClose}
               className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-black dark:text-white"
             >
@@ -280,6 +281,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                       className="hidden"
                     />
                     <button 
+                      id="car-modal-upload-btn"
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       className="p-3 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 rounded-xl transition-colors"
@@ -289,6 +291,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                     </button>
                     {formData.imageUrl.startsWith('data:') && (
                       <button 
+                        id="car-modal-clear-photo-btn"
                         type="button"
                         onClick={() => setFormData({ ...formData, imageUrl: '' })}
                         className="p-3 bg-rose-500/10 hover:bg-rose-500/20 rounded-xl transition-colors"
@@ -336,6 +339,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                     className="flex-1 px-4 py-2 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                   <button 
+                    id="car-modal-add-feature-btn"
                     type="button"
                     onClick={addFeature}
                     className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-xl text-sm font-bold"
@@ -366,6 +370,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
 
           <div className="p-6 border-t border-black/5 dark:border-white/5 bg-white dark:bg-black sticky bottom-0 z-10">
             <button 
+              id="car-modal-save-btn"
               onClick={handleSubmit}
               disabled={loading}
               className="w-full flex items-center justify-center gap-2 py-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold text-sm hover:bg-black/90 dark:hover:bg-white/90 transition-all active:scale-[0.98] disabled:opacity-50"

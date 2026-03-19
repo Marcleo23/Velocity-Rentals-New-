@@ -82,7 +82,7 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
     <div className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Revenue Trend */}
-        <div className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
+        <div id="revenue-trend-chart" className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
           <div className="mb-6">
             <h3 className="text-lg font-bold dark:text-white">Revenue Trend</h3>
             <p className="text-xs text-black/40 dark:text-white/60 font-medium uppercase tracking-widest">Last 7 Days</p>
@@ -134,7 +134,7 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
         </div>
 
         {/* Booking Volume */}
-        <div className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
+        <div id="booking-volume-chart" className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
           <div className="mb-6">
             <h3 className="text-lg font-bold dark:text-white">Booking Volume</h3>
             <p className="text-xs text-black/40 dark:text-white/60 font-medium uppercase tracking-widest">Daily Activity</p>
@@ -179,7 +179,7 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
       </div>
 
       {/* Status Distribution */}
-      <div className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
+      <div id="status-distribution-chart" className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
         <div className="mb-6">
           <h3 className="text-lg font-bold dark:text-white">Booking Status Distribution</h3>
           <p className="text-xs text-black/40 dark:text-white/60 font-medium uppercase tracking-widest">Overall Performance</p>

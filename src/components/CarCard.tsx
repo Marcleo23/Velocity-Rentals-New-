@@ -57,6 +57,7 @@ export const CarCard: React.FC<CarCardProps> = ({ car, onBook, onCancel, isUserB
 
         {isUserBooking ? (
           <button 
+            id={`car-card-cancel-${car.id}`}
             onClick={() => onCancel?.(car.id)}
             className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-sm transition-all bg-rose-500 text-white hover:bg-rose-600 active:scale-[0.98]"
           >
@@ -64,6 +65,7 @@ export const CarCard: React.FC<CarCardProps> = ({ car, onBook, onCancel, isUserB
           </button>
         ) : (
           <button 
+            id={`car-card-book-${car.id}`}
             onClick={() => onBook(car)}
             disabled={!isAvailable}
             className={`w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-sm transition-all ${

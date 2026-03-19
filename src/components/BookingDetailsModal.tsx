@@ -33,6 +33,7 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
             <p className="text-sm text-black/40 dark:text-white/60 font-medium">Booking ID: {booking.id}</p>
           </div>
           <button 
+            id="booking-details-close-icon-btn"
             onClick={onClose}
             className="p-3 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors"
           >
@@ -139,6 +140,7 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
         {/* Footer */}
         <div className="p-8 bg-black/[0.02] dark:bg-white/[0.02] border-t border-black/5 dark:border-white/5 flex items-center justify-end">
           <button 
+            id="booking-details-close-btn"
             onClick={onClose}
             className="px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-2xl text-sm font-bold hover:opacity-90 transition-all"
           >

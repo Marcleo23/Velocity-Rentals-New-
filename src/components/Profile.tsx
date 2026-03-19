@@ -98,6 +98,7 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
           {isEditing && (
             <div className="absolute -right-12 top-1/2 -translate-y-1/2 flex flex-col gap-2">
               <button 
+                id="profile-upload-btn"
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 className="p-2 bg-white dark:bg-black rounded-full shadow-md hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-black/60 dark:text-white/60"
@@ -106,6 +107,7 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
                 <Upload className="w-4 h-4" />
               </button>
               <button 
+                id="profile-url-toggle-btn"
                 type="button"
                 onClick={() => setShowUrlInput(!showUrlInput)}
                 className="p-2 bg-white dark:bg-black rounded-full shadow-md hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-black/60 dark:text-white/60"
@@ -115,6 +117,7 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
               </button>
               {formData.photoURL && (
                 <button 
+                  id="profile-remove-photo-btn"
                   type="button"
                   onClick={() => setFormData(prev => ({ ...prev, photoURL: '' }))}
                   className="p-2 bg-white dark:bg-black rounded-full shadow-md hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors text-rose-500"
@@ -159,6 +162,7 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
             <h2 className="text-xl font-bold dark:text-white">Account Details</h2>
             {!isEditing && (
               <button 
+                id="profile-edit-btn"
                 onClick={() => setIsEditing(true)}
                 className="text-sm font-bold text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
               >
@@ -242,6 +246,7 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
             {isEditing && (
               <div className="flex items-center gap-3 pt-4">
                 <button 
+                  id="profile-cancel-btn"
                   type="button"
                   onClick={() => {
                     setIsEditing(false);
@@ -258,6 +263,7 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
                   Cancel
                 </button>
                 <button 
+                  id="profile-save-btn"
                   type="submit"
                   disabled={loading}
                   className="flex-1 flex items-center justify-center gap-2 py-3 bg-black dark:bg-white text-white dark:text-black rounded-xl font-bold text-sm hover:bg-black/90 dark:hover:bg-white/90 transition-all active:scale-[0.98] disabled:opacity-50"

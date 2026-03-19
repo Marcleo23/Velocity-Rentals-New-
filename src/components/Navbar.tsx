@@ -35,6 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 px-6 py-4`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div 
+          id="navbar-logo"
           className="flex items-center gap-2 cursor-pointer z-50" 
           onClick={() => handleNavigate('home')}
         >
@@ -47,6 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           <button 
+            id="nav-fleet-btn"
             onClick={() => handleNavigate('home')}
             className={`text-sm font-medium transition-colors ${currentPage === 'home' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
           >
@@ -54,6 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
           {user && (
             <button 
+              id="nav-bookings-btn"
               onClick={() => handleNavigate('bookings')}
               className={`text-sm font-medium transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
             >
@@ -62,6 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
           {user && (
             <button 
+              id="nav-profile-btn"
               onClick={() => handleNavigate('profile')}
               className={`text-sm font-medium transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
             >
@@ -70,6 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
           {isAdmin && (
             <button 
+              id="nav-admin-btn"
               onClick={() => handleNavigate('admin')}
               className={`text-sm font-medium transition-colors ${currentPage === 'admin' ? 'text-black dark:text-white' : 'text-black/50 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
             >
@@ -80,6 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         <div className="flex items-center gap-2 sm:gap-4 z-50">
           <button 
+            id="theme-toggle-btn"
             onClick={toggleTheme}
             className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-black dark:text-white"
             title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
@@ -102,6 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="text-sm font-medium dark:text-white">{userProfile?.displayName || user.displayName}</span>
                 </div>
                 <button 
+                  id="logout-btn"
                   onClick={onLogout}
                   className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors"
                   title="Logout"
@@ -111,6 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             ) : (
               <button 
+                id="login-btn"
                 onClick={onLogin}
                 className="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-full text-sm font-medium hover:bg-black/90 dark:hover:bg-white/90 transition-all active:scale-95"
               >
@@ -121,6 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Menu Toggle */}
           <button 
+            id="mobile-menu-toggle"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors text-black dark:text-white"
           >
@@ -142,6 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex flex-col gap-4">
                 <p className="text-xs font-bold uppercase tracking-widest text-black/30 dark:text-white/30 mb-2">Navigation</p>
                 <button 
+                  id="mobile-nav-fleet-btn"
                   onClick={() => handleNavigate('home')}
                   className={`text-3xl font-bold text-left transition-colors ${currentPage === 'home' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
                 >
@@ -149,6 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
                 {user && (
                   <button 
+                    id="mobile-nav-bookings-btn"
                     onClick={() => handleNavigate('bookings')}
                     className={`text-3xl font-bold text-left transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
                   >
@@ -157,6 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 )}
                 {user && (
                   <button 
+                    id="mobile-nav-profile-btn"
                     onClick={() => handleNavigate('profile')}
                     className={`text-3xl font-bold text-left transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
                   >
@@ -165,6 +177,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 )}
                 {isAdmin && (
                   <button 
+                    id="mobile-nav-admin-btn"
                     onClick={() => handleNavigate('admin')}
                     className={`text-3xl font-bold text-left transition-colors ${currentPage === 'admin' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
                   >
@@ -191,6 +204,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       </div>
                     </div>
                     <button 
+                      id="mobile-logout-btn"
                       onClick={onLogout}
                       className="w-full bg-rose-500 text-white py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg shadow-rose-500/20"
                     >
@@ -200,6 +214,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                 ) : (
                   <button 
+                    id="mobile-login-btn"
                     onClick={onLogin}
                     className="w-full bg-black dark:bg-white text-white dark:text-black py-5 rounded-2xl font-bold text-lg shadow-xl shadow-black/10 dark:shadow-white/5"
                   >

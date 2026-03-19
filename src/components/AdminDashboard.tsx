@@ -83,6 +83,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         
         <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-2xl overflow-x-auto">
           <button 
+            id="admin-tab-fleet"
             onClick={() => setActiveTab('fleet')}
             className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'fleet' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
           >
@@ -90,6 +91,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <span className="opacity-40">{cars.length}</span>
           </button>
           <button 
+            id="admin-tab-pending"
             onClick={() => setActiveTab('pending')}
             className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'pending' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
           >
@@ -97,6 +99,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.PENDING).length}</span>
           </button>
           <button 
+            id="admin-tab-successful"
             onClick={() => setActiveTab('successful')}
             className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'successful' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
           >
@@ -104,6 +107,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CONFIRMED || b.status === BookingStatus.COMPLETED).length}</span>
           </button>
           <button 
+            id="admin-tab-cancelled"
             onClick={() => setActiveTab('cancelled')}
             className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
           >
@@ -112,6 +116,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </button>
           {users.length > 0 && (
             <button 
+              id="admin-tab-users"
               onClick={() => setActiveTab('users')}
               className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'users' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
             >
@@ -120,6 +125,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </button>
           )}
           <button 
+            id="admin-tab-analytics"
             onClick={() => setActiveTab('analytics')}
             className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'analytics' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
           >
@@ -173,6 +179,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               />
             </div>
             <button 
+              id="admin-add-car-btn"
               onClick={handleAddCar}
               className="flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-xl text-sm font-bold hover:bg-black/90 dark:hover:bg-white/90 transition-all"
             >
@@ -218,12 +225,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button 
+                          id={`admin-edit-car-${car.id}`}
                           onClick={() => handleEditCar(car)}
                           className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
                         >
                           <Edit2 className="w-4 h-4 text-black/40 dark:text-white/40" />
                         </button>
-                        <button onClick={() => onDeleteCar(car.id)} className="p-2 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors"><Trash2 className="w-4 h-4 text-rose-500" /></button>
+                        <button 
+                          id={`admin-delete-car-${car.id}`}
+                          onClick={() => onDeleteCar(car.id)} 
+                          className="p-2 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4 text-rose-500" />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -283,6 +297,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       <td className="px-6 py-4 font-bold text-sm dark:text-white">${booking.totalPrice}</td>
                       <td className="px-6 py-4 text-right">
                         <button 
+                          id={`admin-view-booking-${booking.id}`}
                           onClick={() => handleViewBookingDetails(booking)}
                           className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors"
                         >
@@ -348,6 +363,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             <option value="admin">Make Admin</option>
                           </select>
                           <button 
+                            id={`admin-delete-user-${user.uid}`}
                             onClick={() => onDeleteUser?.(user.uid)}
                             className="p-2 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors"
                           >
