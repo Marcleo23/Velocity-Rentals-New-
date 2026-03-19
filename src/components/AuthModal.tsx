@@ -105,7 +105,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 <h2 className="text-3xl font-bold tracking-tight dark:text-white">
                   {isLogin ? 'Welcome Back' : 'Create Account'}
                 </h2>
-                <p className="text-black/40 dark:text-white/40 text-sm font-medium mt-1">
+                <p className="text-black/40 dark:text-white/60 text-sm font-medium mt-1">
                   {isLogin ? 'Enter your credentials to continue' : 'Join our premium car rental fleet'}
                 </p>
               </div>
@@ -129,14 +129,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {(isLogin || !isLogin) && (
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/20" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                   <input 
                     required
                     type="email" 
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/5 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                    className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/10 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white"
                   />
                 </div>
               )}
@@ -144,61 +144,61 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               {!isLogin && (
                 <div className="space-y-4">
                   <div className="relative">
-                    <UserCircle className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/20" />
+                    <UserCircle className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                     <input 
                       required
                       type="text" 
                       placeholder="Full Name"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/5 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/10 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white"
                     />
                   </div>
                   <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/20" />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                     <input 
                       required
                       type="text" 
                       placeholder="Username"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/5 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/10 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white"
                     />
                   </div>
                   <div className="relative">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/20" />
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                     <input 
                       required
                       type="tel" 
                       placeholder="Phone Number"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/5 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/10 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white"
                     />
                   </div>
                   <div className="relative">
-                    <FileText className="absolute left-4 top-4 w-5 h-5 text-black/20 dark:text-white/20" />
+                    <FileText className="absolute left-4 top-4 w-5 h-5 text-black/20 dark:text-white/40" />
                     <textarea 
                       required
                       placeholder="Bio"
                       rows={3}
                       value={bio}
                       onChange={(e) => setBio(e.target.value)}
-                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/5 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none resize-none dark:text-white"
+                      className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/10 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none resize-none dark:text-white"
                     />
                   </div>
                 </div>
               )}
 
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/20" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/20 dark:text-white/40" />
                 <input 
                   required
                   type="password" 
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/5 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                  className="w-full pl-12 pr-4 py-4 bg-black/5 dark:bg-white/10 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white"
                 />
               </div>
 
@@ -218,7 +218,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <div className="mt-8 text-center">
               <button 
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-sm font-bold text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white transition-colors"
+                className="text-sm font-bold text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors"
               >
                 {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign In"}
               </button>

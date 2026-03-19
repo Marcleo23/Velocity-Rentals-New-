@@ -125,7 +125,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
               </div>
               <div>
                 <h2 className="text-xl font-bold dark:text-white">{car ? 'Edit Vehicle' : 'Add New Vehicle'}</h2>
-                <p className="text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Fleet Management</p>
+                <p className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Fleet Management</p>
               </div>
             </div>
             <button 
@@ -145,46 +145,46 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
             )}
             {/* Basic Info */}
             <section className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Basic Information</h3>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/60">Basic Information</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Make</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Make</label>
                   <input 
                     required
                     type="text" 
                     value={formData.make}
                     onChange={(e) => setFormData({ ...formData, make: e.target.value })}
                     placeholder="e.g. Porsche"
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Model</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Model</label>
                   <input 
                     required
                     type="text" 
                     value={formData.model}
                     onChange={(e) => setFormData({ ...formData, model: e.target.value })}
                     placeholder="e.g. 911 Carrera"
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Year</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Year</label>
                   <input 
                     required
                     type="number" 
                     value={formData.year}
                     onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Category</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Category</label>
                   <select 
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none appearance-none dark:text-white dark:bg-black"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none appearance-none dark:text-white dark:bg-black"
                   >
                     <option value="Luxury">Luxury</option>
                     <option value="Sport">Sport</option>
@@ -198,29 +198,29 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
 
             {/* Technical Specs */}
             <section className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Technical Specifications</h3>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/60">Technical Specifications</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1 flex items-center gap-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1 flex items-center gap-1">
                     <Settings className="w-3 h-3" /> Transmission
                   </label>
                   <select 
                     value={formData.transmission}
                     onChange={(e) => setFormData({ ...formData, transmission: e.target.value })}
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white dark:bg-black"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   >
                     <option value="Automatic">Automatic</option>
                     <option value="Manual">Manual</option>
                   </select>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1 flex items-center gap-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1 flex items-center gap-1">
                     <Fuel className="w-3 h-3" /> Fuel Type
                   </label>
                   <select 
                     value={formData.fuelType}
                     onChange={(e) => setFormData({ ...formData, fuelType: e.target.value })}
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white dark:bg-black"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   >
                     <option value="Petrol">Petrol</option>
                     <option value="Diesel">Diesel</option>
@@ -229,14 +229,14 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                   </select>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1 flex items-center gap-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1 flex items-center gap-1">
                     <Users className="w-3 h-3" /> Seats
                   </label>
                   <input 
                     type="number" 
                     value={formData.seats}
                     onChange={(e) => setFormData({ ...formData, seats: parseInt(e.target.value) })}
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
               </div>
@@ -244,10 +244,10 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
 
             {/* Pricing & Media */}
             <section className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Pricing & Media</h3>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/60">Pricing & Media</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1 flex items-center gap-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1 flex items-center gap-1">
                     <DollarSign className="w-3 h-3" /> Price Per Day
                   </label>
                   <input 
@@ -255,11 +255,11 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                     type="number" 
                     value={formData.pricePerDay}
                     onChange={(e) => setFormData({ ...formData, pricePerDay: parseFloat(e.target.value) })}
-                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                    className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1 flex items-center gap-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1 flex items-center gap-1">
                     <ImageIcon className="w-3 h-3" /> Image Source
                   </label>
                   <div className="flex gap-2">
@@ -270,7 +270,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                       onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                       placeholder="https://..."
                       disabled={formData.imageUrl.startsWith('data:')}
-                      className="flex-1 px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none disabled:opacity-50 dark:text-white"
+                      className="flex-1 px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none disabled:opacity-50 dark:text-white dark:bg-black"
                     />
                     <input 
                       type="file"
@@ -282,10 +282,10 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                     <button 
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="p-3 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 rounded-xl transition-colors"
+                      className="p-3 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 rounded-xl transition-colors"
                       title="Upload from device"
                     >
-                      <Upload className="w-5 h-5 text-black/60 dark:text-white/60" />
+                      <Upload className="w-5 h-5 text-black/60 dark:text-white/80" />
                     </button>
                     {formData.imageUrl.startsWith('data:') && (
                       <button 
@@ -312,20 +312,20 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
 
             {/* Description & Features */}
             <section className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Details & Features</h3>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/60">Details & Features</h3>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Description</label>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Description</label>
                 <textarea 
                   required
                   rows={3}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe the vehicle..."
-                  className="w-full px-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none resize-none dark:text-white"
+                  className="w-full px-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none resize-none dark:text-white dark:bg-black"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Features</label>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Features</label>
                 <div className="flex gap-2 mb-3">
                   <input 
                     type="text" 
@@ -333,7 +333,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                     onChange={(e) => setFeatureInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
                     placeholder="Add a feature..."
-                    className="flex-1 px-4 py-2 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white"
+                    className="flex-1 px-4 py-2 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                   />
                   <button 
                     type="button"
@@ -347,13 +347,13 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
                   {formData.features.map((feature, index) => (
                     <span 
                       key={index}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-xs font-medium dark:text-white"
+                      className="inline-flex items-center gap-1 px-3 py-1 bg-black/5 dark:bg-white/10 rounded-full text-xs font-medium dark:text-white"
                     >
                       {feature}
                       <button 
                         type="button"
                         onClick={() => removeFeature(index)}
-                        className="p-0.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-full"
+                        className="p-0.5 hover:bg-black/10 dark:hover:bg-white/20 rounded-full"
                       >
                         <X className="w-3 h-3" />
                       </button>

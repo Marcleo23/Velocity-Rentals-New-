@@ -30,28 +30,28 @@ export const CarCard: React.FC<CarCardProps> = ({ car, onBook, onCancel, isUserB
         </div>
         <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/90 backdrop-blur-md px-3 py-1 rounded-full border border-black/5 dark:border-white/5">
           <span className="text-sm font-bold dark:text-white">${car.pricePerDay}</span>
-          <span className="text-[10px] text-black/40 dark:text-white/40 font-medium ml-1">/ day</span>
+          <span className="text-[10px] text-black/40 dark:text-white/60 font-medium ml-1">/ day</span>
         </div>
       </div>
 
       <div className="p-6">
         <div className="mb-4">
           <h3 className="text-xl font-bold text-black dark:text-white leading-tight">{car.make} {car.model}</h3>
-          <p className="text-sm text-black/40 dark:text-white/40 font-medium">{car.category} • {car.year}</p>
+          <p className="text-sm text-black/40 dark:text-white/60 font-medium">{car.category} • {car.year}</p>
         </div>
 
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="flex flex-col items-center gap-1">
-            <Fuel className="w-4 h-4 text-black/20 dark:text-white/20" />
-            <span className="text-[10px] font-bold text-black/60 dark:text-white/60 uppercase">{car.fuelType}</span>
+            <Fuel className="w-4 h-4 text-black/20 dark:text-white/40" />
+            <span className="text-[10px] font-bold text-black/60 dark:text-white/80 uppercase">{car.fuelType}</span>
           </div>
           <div className="flex flex-col items-center gap-1 border-x border-black/5 dark:border-white/5">
-            <Gauge className="w-4 h-4 text-black/20 dark:text-white/20" />
-            <span className="text-[10px] font-bold text-black/60 dark:text-white/60 uppercase">{car.transmission}</span>
+            <Gauge className="w-4 h-4 text-black/20 dark:text-white/40" />
+            <span className="text-[10px] font-bold text-black/60 dark:text-white/80 uppercase">{car.transmission}</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Users className="w-4 h-4 text-black/20 dark:text-white/20" />
-            <span className="text-[10px] font-bold text-black/60 dark:text-white/60 uppercase">{car.seats} Seats</span>
+            <Users className="w-4 h-4 text-black/20 dark:text-white/40" />
+            <span className="text-[10px] font-bold text-black/60 dark:text-white/80 uppercase">{car.seats} Seats</span>
           </div>
         </div>
 

@@ -136,7 +136,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
           <div>
             <div className="text-2xl font-bold dark:text-white">{cars.length}</div>
-            <div className="text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Total Vehicles</div>
+            <div className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Total Vehicles</div>
           </div>
         </div>
         <div className="bg-white dark:bg-black p-6 rounded-[32px] border border-black/5 dark:border-white/5 flex items-center gap-4">
@@ -145,7 +145,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
           <div>
             <div className="text-2xl font-bold dark:text-white">{bookings.length}</div>
-            <div className="text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Total Bookings</div>
+            <div className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Total Bookings</div>
           </div>
         </div>
         <div className="bg-white dark:bg-black p-6 rounded-[32px] border border-black/5 dark:border-white/5 flex items-center gap-4">
@@ -154,7 +154,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
           <div>
             <div className="text-2xl font-bold dark:text-white">{new Set(bookings.map(b => b.userId)).size}</div>
-            <div className="text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Total Customers</div>
+            <div className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Total Customers</div>
           </div>
         </div>
       </div>
@@ -185,11 +185,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-b border-black/5 dark:border-white/5">
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Vehicle</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Category</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Price/Day</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest text-right">Actions</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Vehicle</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Category</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Status</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Price/Day</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/5 dark:divide-white/5">
@@ -200,7 +200,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         <img src={car.imageUrl} alt="" className="w-12 h-8 object-cover rounded-lg bg-black/5 dark:bg-white/5" referrerPolicy="no-referrer" />
                         <div>
                           <div className="font-bold text-sm dark:text-white">{car.make} {car.model}</div>
-                          <div className="text-[10px] text-black/40 dark:text-white/40 font-medium">{car.year}</div>
+                          <div className="text-[10px] text-black/40 dark:text-white/60 font-medium">{car.year}</div>
                         </div>
                       </div>
                     </td>
@@ -238,12 +238,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-b border-black/5 dark:border-white/5">
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Customer</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Vehicle</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Period</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Status</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Total</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest text-right">Actions</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Customer</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Vehicle</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Period</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Status</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Total</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/5 dark:divide-white/5">
@@ -258,7 +258,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <tr key={booking.id} className="hover:bg-black/[0.01] dark:hover:bg-white/[0.01] transition-colors">
                       <td className="px-6 py-4">
                         <div className="text-sm font-bold dark:text-white">{booking.userEmail}</div>
-                        <div className="text-[10px] text-black/40 dark:text-white/40 font-medium">ID: {booking.userId.slice(0, 8)}...</div>
+                        <div className="text-[10px] text-black/40 dark:text-white/60 font-medium">ID: {booking.userId.slice(0, 8)}...</div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm font-bold dark:text-white">{booking.car?.make} {booking.car?.model}</div>
@@ -302,10 +302,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-black/[0.02] dark:bg-white/[0.02] border-b border-black/5 dark:border-white/5">
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">User</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Email</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">Role</th>
-                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest text-right">Actions</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">User</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Email</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Role</th>
+                  <th className="px-6 py-4 text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/5 dark:divide-white/5">

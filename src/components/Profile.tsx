@@ -161,58 +161,58 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 gap-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Username</label>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Username</label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/20" />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/40" />
                   <input 
                     type="text" 
                     disabled
                     value={profile.username}
-                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium opacity-50 outline-none dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium opacity-50 outline-none dark:text-white dark:bg-black"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Full Name</label>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Full Name</label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/20" />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/40" />
                   <input 
                     type="text" 
                     disabled={!isEditing}
                     value={formData.displayName}
                     onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
-                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none disabled:opacity-50 dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none disabled:opacity-50 dark:text-white dark:bg-black"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Phone Number</label>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Phone Number</label>
                 <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/20" />
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/40" />
                   <input 
                     type="tel" 
                     disabled={!isEditing}
                     placeholder="+1 (555) 000-0000"
                     value={formData.phoneNumber}
                     onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none disabled:opacity-50 dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none disabled:opacity-50 dark:text-white dark:bg-black"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Bio</label>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Bio</label>
                 <div className="relative">
-                  <FileText className="absolute left-4 top-4 w-4 h-4 text-black/20 dark:text-white/20" />
+                  <FileText className="absolute left-4 top-4 w-4 h-4 text-black/20 dark:text-white/40" />
                   <textarea 
                     disabled={!isEditing}
                     rows={3}
                     placeholder="Tell us about yourself..."
                     value={formData.bio}
                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none disabled:opacity-50 resize-none dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none disabled:opacity-50 resize-none dark:text-white dark:bg-black"
                   />
                 </div>
               </div>

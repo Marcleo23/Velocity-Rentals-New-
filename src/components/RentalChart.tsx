@@ -8,18 +8,20 @@ import {
   Tooltip, 
   ResponsiveContainer, 
   Cell,
-  LineChart,
-  Line,
   AreaChart,
   Area
 } from 'recharts';
 import { Booking, BookingStatus } from '../types';
+import { useTheme } from '../context/ThemeContext';
 
 interface RentalChartProps {
   bookings: Booking[];
 }
 
 export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   // Process data for bookings over time (last 7 days)
   const getDailyStats = () => {
     const stats: Record<string, { name: string; bookings: number; revenue: number }> = {};
@@ -71,6 +73,10 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
   const statusData = getStatusStats();
 
   const COLORS = ['#FBBF24', '#10B981', '#3B82F6', '#EF4444'];
+  const gridColor = isDark ? '#ffffff10' : '#00000010';
+  const tickColor = isDark ? '#ffffff40' : '#00000040';
+  const tooltipBg = isDark ? '#1a1a1a' : '#000000';
+  const tooltipText = '#ffffff';
 
   return (
     <div className="space-y-8">
@@ -90,25 +96,25 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
                     <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#00000010" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
                 <XAxis 
                   dataKey="name" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fontWeight: 600, fill: '#00000040' }}
+                  tick={{ fontSize: 10, fontWeight: 600, fill: tickColor }}
                   dy={10}
                 />
                 <YAxis 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fontWeight: 600, fill: '#00000040' }}
+                  tick={{ fontSize: 10, fontWeight: 600, fill: tickColor }}
                 />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#000', 
-                    border: 'none', 
+                    backgroundColor: tooltipBg, 
+                    border: isDark ? '1px solid #ffffff10' : 'none', 
                     borderRadius: '16px',
-                    color: '#fff',
+                    color: tooltipText,
                     fontSize: '12px',
                     fontWeight: 'bold'
                   }}
@@ -136,25 +142,25 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={dailyData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#00000010" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
                 <XAxis 
                   dataKey="name" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fontWeight: 600, fill: '#00000040' }}
+                  tick={{ fontSize: 10, fontWeight: 600, fill: tickColor }}
                   dy={10}
                 />
                 <YAxis 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fontWeight: 600, fill: '#00000040' }}
+                  tick={{ fontSize: 10, fontWeight: 600, fill: tickColor }}
                 />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#000', 
-                    border: 'none', 
+                    backgroundColor: tooltipBg, 
+                    border: isDark ? '1px solid #ffffff10' : 'none', 
                     borderRadius: '16px',
-                    color: '#fff',
+                    color: tooltipText,
                     fontSize: '12px',
                     fontWeight: 'bold'
                   }}
@@ -181,23 +187,23 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={statusData} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#00000010" />
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={gridColor} />
               <XAxis type="number" hide />
               <YAxis 
                 dataKey="name" 
                 type="category" 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fontSize: 10, fontWeight: 600, fill: '#00000040' }}
+                tick={{ fontSize: 10, fontWeight: 600, fill: tickColor }}
                 width={80}
               />
               <Tooltip 
                 cursor={{ fill: 'transparent' }}
                 contentStyle={{ 
-                  backgroundColor: '#000', 
-                  border: 'none', 
+                  backgroundColor: tooltipBg, 
+                  border: isDark ? '1px solid #ffffff10' : 'none', 
                   borderRadius: '16px',
-                  color: '#fff',
+                  color: tooltipText,
                   fontSize: '12px',
                   fontWeight: 'bold'
                 }}

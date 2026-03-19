@@ -61,25 +61,25 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
         <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-2xl">
           <button 
             onClick={() => setActiveTab('pending')}
-            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'pending' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'pending' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
           >
             Pending
-            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.PENDING).length}</span>
+            <span className="opacity-60">{bookings.filter(b => b.status === BookingStatus.PENDING).length}</span>
           </button>
           <button 
             onClick={() => setActiveTab('successful')}
-            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'successful' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'successful' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
           >
             Successful
-            <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CONFIRMED || b.status === BookingStatus.COMPLETED).length}</span>
+            <span className="opacity-60">{bookings.filter(b => b.status === BookingStatus.CONFIRMED || b.status === BookingStatus.COMPLETED).length}</span>
           </button>
           {isAdmin && (
             <button 
               onClick={() => setActiveTab('cancelled')}
-              className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+              className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeTab === 'cancelled' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/60 hover:text-black dark:hover:text-white'}`}
             >
               Cancelled
-              <span className="opacity-40">{bookings.filter(b => b.status === BookingStatus.CANCELLED).length}</span>
+              <span className="opacity-60">{bookings.filter(b => b.status === BookingStatus.CANCELLED).length}</span>
             </button>
           )}
         </div>
@@ -104,7 +104,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
                   <div className="flex flex-col">
                     <h3 className="text-lg font-bold dark:text-white">{booking.car?.make} {booking.car?.model}</h3>
                     {isAdmin && booking.userEmail && (
-                      <span className="text-xs text-black/40 dark:text-white/40 font-medium">{booking.userEmail}</span>
+                      <span className="text-xs text-black/40 dark:text-white/60 font-medium">{booking.userEmail}</span>
                     )}
                   </div>
                   {isAdmin ? (
@@ -128,21 +128,21 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-black/20 dark:text-white/20 uppercase tracking-widest">Pickup</span>
+                    <span className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Pickup</span>
                     <div className="flex items-center gap-2 text-sm font-medium dark:text-white/80">
-                      <Calendar className="w-3.5 h-3.5 text-black/40 dark:text-white/40" />
+                      <Calendar className="w-3.5 h-3.5 text-black/40 dark:text-white/60" />
                       {new Date(booking.startDate).toLocaleDateString()}
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-black/20 dark:text-white/20 uppercase tracking-widest">Return</span>
+                    <span className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Return</span>
                     <div className="flex items-center gap-2 text-sm font-medium dark:text-white/80">
-                      <Calendar className="w-3.5 h-3.5 text-black/40 dark:text-white/40" />
+                      <Calendar className="w-3.5 h-3.5 text-black/40 dark:text-white/60" />
                       {new Date(booking.endDate).toLocaleDateString()}
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-black/20 dark:text-white/20 uppercase tracking-widest">Total</span>
+                    <span className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Total</span>
                     <div className="text-sm font-bold dark:text-white">${booking.totalPrice}</div>
                   </div>
                 </div>

@@ -55,35 +55,35 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
               <img src={car.imageUrl} alt="" className="w-20 h-12 object-cover rounded-lg" referrerPolicy="no-referrer" />
               <div>
                 <h3 className="font-bold text-sm dark:text-white">{car.make} {car.model}</h3>
-                <p className="text-xs text-black/40 dark:text-white/40 font-medium">${car.pricePerDay} / day</p>
+                <p className="text-xs text-black/40 dark:text-white/60 font-medium">${car.pricePerDay} / day</p>
               </div>
             </div>
 
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Pickup Date</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Pickup Date</label>
                   <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/20" />
+                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/40" />
                     <input 
                       type="date" 
                       value={startDate}
                       onChange={(e) => setStartDate(e.target.value)}
                       min={new Date().toISOString().split('T')[0]}
-                      className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white dark:bg-black"
+                      className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/40 px-1">Return Date</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/40 dark:text-white/60 px-1">Return Date</label>
                   <div className="relative">
-                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/20" />
+                    <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20 dark:text-white/40" />
                     <input 
                       type="date" 
                       value={endDate}
                       onChange={(e) => setEndDate(e.target.value)}
                       min={startDate || new Date().toISOString().split('T')[0]}
-                      className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/5 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/5 outline-none dark:text-white dark:bg-black"
+                      className="w-full pl-11 pr-4 py-3 bg-black/5 dark:bg-white/10 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-black/5 dark:focus:ring-white/10 outline-none dark:text-white dark:bg-black"
                     />
                   </div>
                 </div>
