@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Plus, Search, Filter, MoreVertical, Edit2, Trash2, Car as CarIcon, Users, Calendar, Eye } from 'lucide-react';
+import { Plus, Search, Filter, MoreVertical, Edit2, Trash2, Car as CarIcon, Users, Calendar, Eye, BarChart2 } from 'lucide-react';
 import { Car, Booking, CarStatus, UserProfile, BookingStatus } from '../types';
 import { CarModal } from './CarModal';
 import { BookingDetailsModal } from './BookingDetailsModal';
+import { RentalChart } from './RentalChart';
 
 interface AdminDashboardProps {
   cars: Car[];
   bookings: (Booking & { car?: Car; userEmail?: string })[];
   users?: UserProfile[];
-  initialTab?: 'fleet' | 'pending' | 'successful' | 'cancelled' | 'users';
+  initialTab?: 'fleet' | 'pending' | 'successful' | 'cancelled' | 'users' | 'analytics';
   onAddCar: (car: Omit<Car, 'id'>) => void;
   onUpdateCar: (id: string, updates: Partial<Car>) => void;
   onDeleteCar: (id: string) => void;
@@ -29,7 +30,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onUpdateUserRole,
   onDeleteUser
 }) => {
-  const [activeTab, setActiveTab] = useState<'fleet' | 'pending' | 'successful' | 'cancelled' | 'users'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'fleet' | 'pending' | 'successful' | 'cancelled' | 'users' | 'analytics'>(initialTab);
   const [isCarModalOpen, setIsCarModalOpen] = useState(false);
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [selectedBooking, setSelectedBooking] = useState<(Booking & { car?: Car; userEmail?: string }) | null>(null);
@@ -118,6 +119,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <span className="opacity-40">{users.length}</span>
             </button>
           )}
+          <button 
+            onClick={() => setActiveTab('analytics')}
+            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-2 ${activeTab === 'analytics' ? 'bg-white dark:bg-black shadow-sm text-black dark:text-white' : 'text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white'}`}
+          >
+            Analytics
+            <BarChart2 className="w-3 h-3 opacity-40" />
+          </button>
         </div>
       </div>
 
@@ -151,7 +159,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
       </div>
 
-      {activeTab === 'fleet' ? (
+      {activeTab === 'analytics' ? (
+        <RentalChart bookings={bookings} />
+      ) : activeTab === 'fleet' ? (
         <div className="bg-white dark:bg-black rounded-[32px] border border-black/5 dark:border-white/5 overflow-hidden">
           <div className="p-6 border-b border-black/5 dark:border-white/5 flex items-center justify-between">
             <div className="relative flex-1 max-w-md">
