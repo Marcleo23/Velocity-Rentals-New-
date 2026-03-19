@@ -30,13 +30,13 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
         <div className="p-8 border-b border-black/5 dark:border-white/5 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold dark:text-white">Rental Details</h2>
-            <p className="text-sm text-black/40 dark:text-white/40 font-medium">Booking ID: {booking.id}</p>
+            <p className="text-sm text-black/40 dark:text-white/60 font-medium">Booking ID: {booking.id}</p>
           </div>
           <button 
             onClick={onClose}
             className="p-3 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors"
           >
-            <X className="w-6 h-6 text-black/40 dark:text-white/40" />
+            <X className="w-6 h-6 text-black/40 dark:text-white/60" />
           </button>
         </div>
 
@@ -57,7 +57,7 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
               
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 bg-black/5 dark:bg-white/5 rounded text-[10px] font-bold uppercase tracking-widest text-black/40 dark:text-white/40">
+                  <span className="px-2 py-0.5 bg-black/5 dark:bg-white/5 rounded text-[10px] font-bold uppercase tracking-widest text-black/40 dark:text-white/60">
                     {booking.car?.category}
                   </span>
                   <div className={`px-2 py-0.5 rounded border text-[10px] font-bold uppercase tracking-widest ${getStatusStyles(booking.status)}`}>
@@ -65,7 +65,7 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
                   </div>
                 </div>
                 <h3 className="text-xl font-bold dark:text-white">{booking.car?.make} {booking.car?.model}</h3>
-                <p className="text-sm text-black/40 dark:text-white/40 font-medium">{booking.car?.year} • {booking.car?.transmission} • {booking.car?.fuelType}</p>
+                <p className="text-sm text-black/40 dark:text-white/60 font-medium">{booking.car?.year} • {booking.car?.transmission} • {booking.car?.fuelType}</p>
               </div>
 
               <div className="p-4 bg-black/5 dark:bg-white/5 rounded-2xl space-y-3">
@@ -85,13 +85,13 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <div className="w-10 h-10 bg-black/5 dark:bg-white/5 rounded-xl flex items-center justify-center shrink-0">
-                    <Calendar className="w-5 h-5 text-black/40 dark:text-white/40" />
+                    <Calendar className="w-5 h-5 text-black/40 dark:text-white/60" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-black/20 dark:text-white/20 uppercase tracking-widest block mb-1">Rental Period</span>
+                    <span className="text-[10px] font-bold text-black/20 dark:text-white/40 uppercase tracking-widest block mb-1">Rental Period</span>
                     <p className="text-sm font-bold dark:text-white">
                       {new Date(booking.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                      <span className="mx-2 text-black/20 dark:text-white/20">→</span>
+                      <span className="mx-2 text-black/20 dark:text-white/40">→</span>
                       {new Date(booking.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </p>
                   </div>
@@ -99,24 +99,24 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
 
                 <div className="flex gap-4">
                   <div className="w-10 h-10 bg-black/5 dark:bg-white/5 rounded-xl flex items-center justify-center shrink-0">
-                    <User className="w-5 h-5 text-black/40 dark:text-white/40" />
+                    <User className="w-5 h-5 text-black/40 dark:text-white/60" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-black/20 dark:text-white/20 uppercase tracking-widest block mb-1">Customer Info</span>
+                    <span className="text-[10px] font-bold text-black/20 dark:text-white/40 uppercase tracking-widest block mb-1">Customer Info</span>
                     <p className="text-sm font-bold dark:text-white">{booking.userEmail}</p>
-                    <p className="text-[10px] text-black/40 dark:text-white/40 font-medium">UID: {booking.userId}</p>
+                    <p className="text-[10px] text-black/40 dark:text-white/60 font-medium">UID: {booking.userId}</p>
                   </div>
                 </div>
 
                 <div className="flex gap-4">
                   <div className="w-10 h-10 bg-black/5 dark:bg-white/5 rounded-xl flex items-center justify-center shrink-0">
-                    <CreditCard className="w-5 h-5 text-black/40 dark:text-white/40" />
+                    <CreditCard className="w-5 h-5 text-black/40 dark:text-white/60" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-black/20 dark:text-white/20 uppercase tracking-widest block mb-1">Payment Summary</span>
+                    <span className="text-[10px] font-bold text-black/20 dark:text-white/40 uppercase tracking-widest block mb-1">Payment Summary</span>
                     <div className="flex items-baseline gap-2">
                       <p className="text-2xl font-bold dark:text-white">${booking.totalPrice}</p>
-                      <span className="text-xs text-black/40 dark:text-white/40 font-medium">Total Paid</span>
+                      <span className="text-xs text-black/40 dark:text-white/60 font-medium">Total Paid</span>
                     </div>
                   </div>
                 </div>
@@ -124,12 +124,12 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
 
               <div className="pt-6 border-t border-black/5 dark:border-white/5">
                 <div className="flex items-center gap-2 mb-4">
-                  <MapPin className="w-4 h-4 text-black/40 dark:text-white/40" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40">Pickup Location</span>
+                  <MapPin className="w-4 h-4 text-black/40 dark:text-white/60" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/60">Pickup Location</span>
                 </div>
                 <div className="p-4 bg-black/5 dark:bg-white/5 rounded-2xl">
                   <p className="text-sm font-bold dark:text-white">Velocity Central Hub</p>
-                  <p className="text-xs text-black/40 dark:text-white/40 font-medium">123 Rental Drive, Airport District</p>
+                  <p className="text-xs text-black/40 dark:text-white/60 font-medium">123 Rental Drive, Airport District</p>
                 </div>
               </div>
             </div>

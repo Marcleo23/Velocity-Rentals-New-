@@ -85,7 +85,7 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
         <div className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
           <div className="mb-6">
             <h3 className="text-lg font-bold dark:text-white">Revenue Trend</h3>
-            <p className="text-xs text-black/40 dark:text-white/40 font-medium uppercase tracking-widest">Last 7 Days</p>
+            <p className="text-xs text-black/40 dark:text-white/60 font-medium uppercase tracking-widest">Last 7 Days</p>
           </div>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -137,7 +137,7 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
         <div className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
           <div className="mb-6">
             <h3 className="text-lg font-bold dark:text-white">Booking Volume</h3>
-            <p className="text-xs text-black/40 dark:text-white/40 font-medium uppercase tracking-widest">Daily Activity</p>
+            <p className="text-xs text-black/40 dark:text-white/60 font-medium uppercase tracking-widest">Daily Activity</p>
           </div>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -182,7 +182,7 @@ export const RentalChart: React.FC<RentalChartProps> = ({ bookings }) => {
       <div className="bg-white dark:bg-black p-8 rounded-[32px] border border-black/5 dark:border-white/5">
         <div className="mb-6">
           <h3 className="text-lg font-bold dark:text-white">Booking Status Distribution</h3>
-          <p className="text-xs text-black/40 dark:text-white/40 font-medium uppercase tracking-widest">Overall Performance</p>
+          <p className="text-xs text-black/40 dark:text-white/60 font-medium uppercase tracking-widest">Overall Performance</p>
         </div>
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">

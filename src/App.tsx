@@ -26,7 +26,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { Profile } from './components/Profile';
 import { AuthModal } from './components/AuthModal';
 import { motion, AnimatePresence } from 'motion/react';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2, Car as CarIcon } from 'lucide-react';
 
 export default function App() {
   const [user, setUser] = useState<any>(null);
@@ -394,6 +394,20 @@ export default function App() {
         currentPage={currentPage}
       />
 
+      {/* Ambiance: Floating Car Silhouette on the right */}
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-0 hidden xl:block pointer-events-none opacity-5 dark:opacity-10 select-none">
+        <div className="rotate-90 origin-right translate-x-1/2">
+          <span className="text-[120px] font-black tracking-tighter text-black dark:text-white whitespace-nowrap">
+            VELOCITY
+          </span>
+        </div>
+      </div>
+
+      {/* Floating Car Icon for Ambiance */}
+      <div className="fixed right-8 bottom-24 z-0 hidden lg:block pointer-events-none opacity-10 dark:opacity-20 select-none">
+        <CarIcon className="w-32 h-32 text-black dark:text-white -rotate-12" />
+      </div>
+
       <main className="pt-24 pb-20">
         <AnimatePresence mode="wait">
           {currentPage === 'home' && (
@@ -404,14 +418,34 @@ export default function App() {
               exit={{ opacity: 0, y: -20 }}
               className="max-w-7xl mx-auto px-6"
             >
-              <div className="mb-12">
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[0.9] dark:text-white">
-                  Drive the <br />
-                  <span className="text-black/20 dark:text-white/20 italic">Extraordinary.</span>
-                </h1>
-                <p className="text-lg text-black/40 dark:text-white/40 font-medium max-w-xl">
-                  Experience premium mobility with our curated fleet of luxury, performance, and electric vehicles.
-                </p>
+              <div className="relative mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 overflow-hidden">
+                <div className="z-10 relative">
+                  <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[0.9] dark:text-white">
+                    Drive the <br />
+                    <span className="text-black/20 dark:text-white/20 italic">Extraordinary.</span>
+                  </h1>
+                  <p className="text-lg text-black/40 dark:text-white/40 font-medium max-w-xl">
+                    Experience premium mobility with our curated fleet of luxury, performance, and electric vehicles.
+                  </p>
+                </div>
+
+                {/* Decorative Car for Ambiance */}
+                <motion.div 
+                  initial={{ x: 100, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                  className="hidden lg:block absolute -right-20 top-1/2 -translate-y-1/2 w-[600px] pointer-events-none select-none"
+                >
+                  <div className="relative">
+                    <img 
+                      src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1000" 
+                      alt="" 
+                      className="w-full h-auto object-contain opacity-20 dark:opacity-30 grayscale hover:grayscale-0 transition-all duration-700 mask-linear-to-l"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-l from-transparent via-transparent to-[#F8F9FA] dark:to-[#0A0A0A]" />
+                  </div>
+                </motion.div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
