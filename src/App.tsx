@@ -49,7 +49,13 @@ export default function App() {
           // Fetch or create user profile
           const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
           if (userDoc.exists()) {
-            setUserProfile(userDoc.data() as UserProfile);
+            const data = userDoc.data() as UserProfile;
+            // Ensure super admin always has admin role in state and DB
+            if (firebaseUser.email === 'leom57583@gmail.com' && data.role !== 'admin') {
+              await updateDoc(doc(db, 'users', firebaseUser.uid), { role: 'admin' });
+              data.role = 'admin';
+            }
+            setUserProfile(data);
           } else {
             const newProfile: UserProfile = {
               uid: firebaseUser.uid,
