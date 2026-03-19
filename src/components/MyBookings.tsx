@@ -147,7 +147,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
                   </div>
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold text-black/40 dark:text-white/60 uppercase tracking-widest">Total</span>
-                    <div className="text-sm font-bold dark:text-white">${booking.totalPrice}</div>
+                    <div className="text-sm font-bold dark:text-white">XAF {booking.totalPrice}</div>
                   </div>
                 </div>
               </div>

@@ -60,7 +60,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
               <img src={car.imageUrl} alt="" className="w-20 h-12 object-cover rounded-lg" referrerPolicy="no-referrer" />
               <div>
                 <h3 className="font-bold text-sm dark:text-white">{car.make} {car.model}</h3>
-                <p className="text-xs text-black/40 dark:text-white/60 font-medium">${car.pricePerDay} / day</p>
+                <p className="text-xs text-black/40 dark:text-white/60 font-medium">XAF {car.pricePerDay} / day</p>
               </div>
             </div>
 
@@ -99,7 +99,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ car, onClose, onConf
               <div className="p-6 bg-black dark:bg-white text-white dark:text-black rounded-2xl">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-medium opacity-60">Total Amount</span>
-                  <span className="text-2xl font-bold">${totalPrice}</span>
+                  <span className="text-2xl font-bold">XAF {totalPrice}</span>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-medium opacity-40 uppercase tracking-widest">
                   <Info className="w-3 h-3" />

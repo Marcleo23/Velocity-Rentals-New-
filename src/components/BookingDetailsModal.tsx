@@ -116,7 +116,7 @@ export const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen
                   <div>
                     <span className="text-[10px] font-bold text-black/20 dark:text-white/40 uppercase tracking-widest block mb-1">Payment Summary</span>
                     <div className="flex items-baseline gap-2">
-                      <p className="text-2xl font-bold dark:text-white">${booking.totalPrice}</p>
+                      <p className="text-2xl font-bold dark:text-white">XAF {booking.totalPrice}</p>
                       <span className="text-xs text-black/40 dark:text-white/60 font-medium">Total Paid</span>
                     </div>
                   </div>

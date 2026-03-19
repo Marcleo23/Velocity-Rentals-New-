@@ -221,7 +221,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         {car.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-bold text-sm dark:text-white">${car.pricePerDay}</td>
+                    <td className="px-6 py-4 font-bold text-sm dark:text-white">XAF {car.pricePerDay}</td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button 
@@ -294,7 +294,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           <option value="completed">Completed</option>
                         </select>
                       </td>
-                      <td className="px-6 py-4 font-bold text-sm dark:text-white">${booking.totalPrice}</td>
+                      <td className="px-6 py-4 font-bold text-sm dark:text-white">XAF {booking.totalPrice}</td>
                       <td className="px-6 py-4 text-right">
                         <button 
                           id={`admin-view-booking-${booking.id}`}

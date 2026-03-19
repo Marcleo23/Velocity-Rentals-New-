@@ -29,7 +29,7 @@ export const CarCard: React.FC<CarCardProps> = ({ car, onBook, onCancel, isUserB
           </span>
         </div>
         <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/90 backdrop-blur-md px-3 py-1 rounded-full border border-black/5 dark:border-white/5">
-          <span className="text-sm font-bold dark:text-white">${car.pricePerDay}</span>
+          <span className="text-sm font-bold dark:text-white">XAF {car.pricePerDay}</span>
           <span className="text-[10px] text-black/40 dark:text-white/60 font-medium ml-1">/ day</span>
         </div>
       </div>
