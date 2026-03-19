@@ -141,89 +141,99 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Navigation Menu */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden fixed inset-0 top-[72px] bg-white dark:bg-black z-40 overflow-y-auto px-6 py-8"
-          >
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-4">
-                <p className="text-xs font-bold uppercase tracking-widest text-black/30 dark:text-white/30 mb-2">Navigation</p>
-                <button 
-                  id="mobile-nav-fleet-btn"
-                  onClick={() => handleNavigate('home')}
-                  className={`text-3xl font-bold text-left transition-colors ${currentPage === 'home' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
-                >
-                  Fleet
-                </button>
-                {user && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+              className="md:hidden fixed inset-0 top-[72px] bg-black/20 backdrop-blur-sm z-30"
+            />
+            <motion.div 
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="md:hidden fixed top-[72px] right-0 bottom-0 w-[50%] bg-white dark:bg-black z-40 overflow-y-auto px-6 py-8 border-l border-black/5 dark:border-white/5 shadow-2xl"
+            >
+              <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-4">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/30 dark:text-white/30 mb-2">Navigation</p>
                   <button 
-                    id="mobile-nav-bookings-btn"
-                    onClick={() => handleNavigate('bookings')}
-                    className={`text-3xl font-bold text-left transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
+                    id="mobile-nav-fleet-btn"
+                    onClick={() => handleNavigate('home')}
+                    className={`text-xl font-bold text-left transition-colors ${currentPage === 'home' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
                   >
-                    {userProfile?.role === 'admin' ? 'Bookings' : 'My Bookings'}
+                    Fleet
                   </button>
-                )}
-                {user && (
-                  <button 
-                    id="mobile-nav-profile-btn"
-                    onClick={() => handleNavigate('profile')}
-                    className={`text-3xl font-bold text-left transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
-                  >
-                    Profile
-                  </button>
-                )}
-                {isAdmin && (
-                  <button 
-                    id="mobile-nav-admin-btn"
-                    onClick={() => handleNavigate('admin')}
-                    className={`text-3xl font-bold text-left transition-colors ${currentPage === 'admin' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
-                  >
-                    Admin
-                  </button>
-                )}
-              </div>
-
-              <div className="pt-8 border-t border-black/5 dark:border-white/5">
-                <p className="text-xs font-bold uppercase tracking-widest text-black/30 dark:text-white/30 mb-6">Account</p>
-                {user ? (
-                  <div className="flex flex-col gap-6">
-                    <div className="flex items-center gap-4">
-                      {user.photoURL ? (
-                        <img src={user.photoURL} alt="" className="w-14 h-14 rounded-full border-2 border-black/10 dark:border-white/10" referrerPolicy="no-referrer" />
-                      ) : (
-                        <div className="w-14 h-14 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center">
-                          <User className="w-6 h-6 text-black/40 dark:text-white/40" />
-                        </div>
-                      )}
-                      <div>
-                        <p className="text-xl font-bold dark:text-white">{userProfile?.displayName || user.displayName}</p>
-                        <p className="text-sm text-black/40 dark:text-white/40">{user.email}</p>
-                      </div>
-                    </div>
+                  {user && (
                     <button 
-                      id="mobile-logout-btn"
-                      onClick={onLogout}
-                      className="w-full bg-rose-500 text-white py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg shadow-rose-500/20"
+                      id="mobile-nav-bookings-btn"
+                      onClick={() => handleNavigate('bookings')}
+                      className={`text-xl font-bold text-left transition-colors ${currentPage === 'bookings' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
                     >
-                      <LogOut className="w-5 h-5" />
-                      Sign Out
+                      {userProfile?.role === 'admin' ? 'Bookings' : 'My Bookings'}
                     </button>
-                  </div>
-                ) : (
-                  <button 
-                    id="mobile-login-btn"
-                    onClick={onLogin}
-                    className="w-full bg-black dark:bg-white text-white dark:text-black py-5 rounded-2xl font-bold text-lg shadow-xl shadow-black/10 dark:shadow-white/5"
-                  >
-                    Sign In to Velocity
-                  </button>
-                )}
+                  )}
+                  {user && (
+                    <button 
+                      id="mobile-nav-profile-btn"
+                      onClick={() => handleNavigate('profile')}
+                      className={`text-xl font-bold text-left transition-colors ${currentPage === 'profile' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
+                    >
+                      Profile
+                    </button>
+                  )}
+                  {isAdmin && (
+                    <button 
+                      id="mobile-nav-admin-btn"
+                      onClick={() => handleNavigate('admin')}
+                      className={`text-xl font-bold text-left transition-colors ${currentPage === 'admin' ? 'text-black dark:text-white' : 'text-black/20 dark:text-white/20'}`}
+                    >
+                      Admin
+                    </button>
+                  )}
+                </div>
+
+                <div className="pt-8 border-t border-black/5 dark:border-white/5">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-black/30 dark:text-white/30 mb-6">Account</p>
+                  {user ? (
+                    <div className="flex flex-col gap-6">
+                      <div className="flex flex-col gap-4">
+                        {user.photoURL ? (
+                          <img src={user.photoURL} alt="" className="w-12 h-12 rounded-full border-2 border-black/10 dark:border-white/10" referrerPolicy="no-referrer" />
+                        ) : (
+                          <div className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center">
+                            <User className="w-5 h-5 text-black/40 dark:text-white/40" />
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-sm font-bold dark:text-white truncate">{userProfile?.displayName || user.displayName}</p>
+                          <p className="text-[10px] text-black/40 dark:text-white/40 truncate">{user.email}</p>
+                        </div>
+                      </div>
+                      <button 
+                        id="mobile-logout-btn"
+                        onClick={onLogout}
+                        className="w-full bg-rose-500 text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-500/20"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
+                  ) : (
+                    <button 
+                      id="mobile-login-btn"
+                      onClick={onLogin}
+                      className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-xl font-bold text-sm shadow-xl shadow-black/10 dark:shadow-white/5"
+                    >
+                      Sign In
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 
