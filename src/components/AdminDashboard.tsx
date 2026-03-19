@@ -348,11 +348,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             <option value="admin">Make Admin</option>
                           </select>
                           <button 
-                            onClick={() => {
-                              if (window.confirm(`Are you sure you want to delete ${user.displayName}?`)) {
-                                onDeleteUser?.(user.uid);
-                              }
-                            }}
+                            onClick={() => onDeleteUser?.(user.uid)}
                             className="p-2 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg transition-colors"
                           >
                             <Trash2 className="w-4 h-4 text-rose-500" />

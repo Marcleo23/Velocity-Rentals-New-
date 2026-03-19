@@ -11,6 +11,7 @@ interface ProfileProps {
 export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [showUrlInput, setShowUrlInput] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   
@@ -25,9 +26,10 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 800 * 1024) {
-        alert('Image size must be less than 800KB');
+        setError('Image size must be less than 800KB');
         return;
       }
+      setError(null);
       const reader = new FileReader();
       reader.onloadend = () => {
         setFormData(prev => ({ ...prev, photoURL: reader.result as string }));
@@ -39,12 +41,14 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       await onUpdate(formData);
       setIsEditing(false);
       setShowUrlInput(false);
-    } catch (error) {
-      console.error('Update failed:', error);
+    } catch (err: any) {
+      console.error('Update failed:', err);
+      setError(err.message || 'Failed to update profile');
     } finally {
       setLoading(false);
     }
@@ -53,6 +57,11 @@ export const Profile: React.FC<ProfileProps> = ({ profile, onUpdate }) => {
   return (
     <div className="max-w-2xl mx-auto py-12 px-6">
       <div className="mb-12 text-center">
+        {error && (
+          <div className="mb-6 p-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-500 text-sm font-medium">
+            {error}
+          </div>
+        )}
         <div className="relative inline-block mb-6 group">
           <div className="relative">
             {formData.photoURL ? (

@@ -32,7 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isMenuOpen ? 'h-screen bg-white dark:bg-black' : 'bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/5 dark:border-white/5'} px-6 py-4`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 px-6 py-4`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div 
           className="flex items-center gap-2 cursor-pointer z-50" 

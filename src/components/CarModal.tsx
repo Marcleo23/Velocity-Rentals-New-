@@ -88,7 +88,7 @@ export const CarModal: React.FC<CarModalProps> = ({ car, isOpen, onClose, onSave
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 800000) {
-        alert('Image is too large. Please select an image smaller than 800KB.');
+        setError('Image is too large. Please select an image smaller than 800KB.');
         return;
       }
       const reader = new FileReader();

@@ -157,11 +157,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ bookings, onCancel, onUp
                 </button>
                 {(booking.status === BookingStatus.PENDING || booking.status === BookingStatus.CONFIRMED) && (
                   <button 
-                    onClick={() => {
-                      if (window.confirm('Are you sure you want to cancel this booking?')) {
-                        onCancel?.(booking.id);
-                      }
-                    }}
+                    onClick={() => onCancel?.(booking.id)}
                     className="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all"
                   >
                     Cancel

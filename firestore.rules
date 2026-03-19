@@ -107,13 +107,11 @@ service cloud.firestore {
 
     match /users/{userId} {
       allow read: if isAuthenticated();
-      allow create: if isOwner(userId) && 
-                      isValidUser(request.resource.data) && 
-                      (request.resource.data.role == 'user' || isSuperAdmin());
+      allow create: if (isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == 'user') || 
+                      isAdmin();
       allow update: if (isOwner(userId) && request.resource.data.role == resource.data.role && isValidUser(request.resource.data)) || 
-                      isSuperAdmin() || 
-                      (isAdmin() && isValidUser(request.resource.data));
-      allow delete: if isSuperAdmin();
+                      isAdmin();
+      allow delete: if isAdmin();
     }
 
     match /cars/{carId} {
