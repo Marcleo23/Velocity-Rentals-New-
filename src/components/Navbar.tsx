@@ -154,7 +154,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-[72px] right-0 bottom-0 w-[50%] bg-white dark:bg-black z-40 overflow-y-auto px-6 py-8 border-l border-black/5 dark:border-white/5 shadow-2xl"
+              className="md:hidden fixed top-[72px] right-0 w-[50%] h-[70%] bg-white dark:bg-black z-40 overflow-y-auto px-6 py-8 border-l border-b border-black/5 dark:border-white/5 shadow-2xl rounded-bl-[32px]"
             >
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-4">
