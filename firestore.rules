@@ -49,15 +49,14 @@ service cloud.firestore {
     
     function isAdmin() {
       return isAuthenticated() &&
-        ((exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
-          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
-         isSuperAdmin());
+        (isSuperAdmin() || 
+         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
     }
 
     function isSuperAdmin() {
       return isAuthenticated() && 
-             request.auth.token.email == "leom57583@gmail.com" && 
-             request.auth.token.email_verified == true;
+             request.auth.token.email == "leom57583@gmail.com";
     }
 
     function isValidCar(data) {
@@ -77,7 +76,7 @@ service cloud.firestore {
 
     function isValidBooking(data) {
       return data.carId is string && data.carId.size() < 128 &&
-             data.userId == request.auth.uid &&
+             data.userId is string && data.userId.size() < 128 &&
              data.startDate is string && data.startDate.size() < 50 &&
              data.endDate is string && data.endDate.size() < 50 &&
              data.totalPrice is number && data.totalPrice > 0 &&
@@ -88,12 +87,12 @@ service cloud.firestore {
 
     function isValidUser(data) {
       return data.email is string && isValidEmail(data.email) &&
-             data.username is string && data.username.size() >= 3 && data.username.size() < 30 &&
+             data.username is string && data.username.size() >= 1 && data.username.size() < 50 &&
              data.displayName is string && data.displayName.size() > 0 && data.displayName.size() < 100 &&
              data.role in ['user', 'admin'] &&
-             (!('photoURL' in data) || (data.photoURL is string && data.photoURL.size() < 500)) &&
+             (!('photoURL' in data) || (data.photoURL is string && data.photoURL.size() < 1000)) &&
              (!('phoneNumber' in data) || (data.phoneNumber is string && data.phoneNumber.size() < 30)) &&
-             (!('bio' in data) || (data.bio is string && data.bio.size() < 500)) &&
+             (!('bio' in data) || (data.bio is string && data.bio.size() < 1000)) &&
              (!('uid' in data) || (data.uid is string && data.uid.size() < 128));
     }
 
@@ -111,7 +110,9 @@ service cloud.firestore {
       allow create: if isOwner(userId) && 
                       isValidUser(request.resource.data) && 
                       (request.resource.data.role == 'user' || isSuperAdmin());
-      allow update: if (isOwner(userId) && request.resource.data.role == resource.data.role && isValidUser(request.resource.data)) || isSuperAdmin() || (isAdmin() && request.resource.data.role == resource.data.role);
+      allow update: if (isOwner(userId) && request.resource.data.role == resource.data.role && isValidUser(request.resource.data)) || 
+                      isSuperAdmin() || 
+                      (isAdmin() && isValidUser(request.resource.data));
       allow delete: if isSuperAdmin();
     }
 
@@ -120,15 +121,13 @@ service cloud.firestore {
       allow create: if isAdmin() && isValidCar(request.resource.data);
       allow update: if (isAdmin() && isValidCar(request.resource.data)) || 
                       (isAuthenticated() && 
-                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) &&
-                       ((resource.data.status == 'available' && request.resource.data.status == 'rented') ||
-                        (resource.data.status == 'rented' && request.resource.data.status == 'available')));
+                       request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']));
       allow delete: if isAdmin();
     }
 
     match /bookings/{bookingId} {
       allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isAdmin());
-      allow create: if isAuthenticated() && isValidBooking(request.resource.data);
+      allow create: if isAuthenticated() && isValidBooking(request.resource.data) && request.resource.data.userId == request.auth.uid;
       allow update: if isAuthenticated() && (
         (resource.data.userId == request.auth.uid && request.resource.data.status == 'cancelled' && (resource.data.status == 'pending' || resource.data.status == 'confirmed')) ||
         isAdmin()
