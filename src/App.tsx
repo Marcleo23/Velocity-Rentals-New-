@@ -25,6 +25,7 @@ import { MyBookings } from './components/MyBookings';
 import { AdminDashboard } from './components/AdminDashboard';
 import { Profile } from './components/Profile';
 import { AuthModal } from './components/AuthModal';
+import { Footer } from './components/Footer';
 import { motion, AnimatePresence } from 'motion/react';
 import { AlertCircle, Loader2, Car as CarIcon } from 'lucide-react';
 
@@ -585,6 +586,8 @@ export default function App() {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
       />
+
+      <Footer onNavigate={setCurrentPage} />
     </div>
   );
 }
